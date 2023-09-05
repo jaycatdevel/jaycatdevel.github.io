@@ -1,0 +1,306 @@
+@font-face{
+    font-family: "bebaskai";
+    src: url("fonts/bebaskai.otf") format("opentype");
+}
+
+@font-face{
+    font-family: "roboto";
+    src: url("fonts/roboto-regular.ttf") format("opentype");
+}
+
+body {
+    background-color: white;
+    color: black;
+    margin: 0;     
+    font-family: "roboto",sans-serif;
+}
+
+.sideBySide{
+    display: inline-block;
+}
+
+.outer {
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+.inputOuter {
+    min-width:100%;    
+    max-width:100%;        
+}
+
+.content {
+    min-width: 600px;
+    max-width: 600px;
+}
+
+h2{
+    all: unset;
+    font-weight: normal;
+    line-height: 1.5em;
+    font-size: 1.5em;
+}
+
+.mainContent {
+    min-width: 100%;
+    max-width: 100%;
+}
+
+label,select {
+    min-width: 120px;
+    max-width: 120px;
+    text-align: right;
+    display: inline-block;     
+}
+
+label:after { content: ": " }
+
+select {
+    border-radius: 10px;    
+    border:1px solid grey;
+}
+input {
+    min-width: 120px;
+    max-width: 120px;    
+    border-radius: 10px;    
+    border:1px solid grey;
+}
+.inputDiv{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    min-width: 360px;
+    max-width: 360px;
+    display: block;            
+}
+
+.buttonGroup {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    min-width: 265px;
+    max-width: 265px;
+    display: block;                
+}
+.headerBar {
+    background-color: #2C3D55;    
+    color: white;
+    padding-left: 15px;    
+    font-family: "bebaskai",sans-serif;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    margin-top: 5px;    
+}
+
+.monthLine {
+    background-color: #2C3D55;    
+    color: white;
+    padding-left: 15px;    
+    font-family: "bebaskai",sans-serif;
+    font-size: 1em;
+    margin-bottom: 5px;
+    margin-top: 5px;    
+}
+
+.headerBlock {
+    min-width: 146px;
+    max-width: 146px;
+    margin-left: 70px;        
+}
+.mainHeader{     
+    margin-bottom: 0px;
+    margin-top: 10px;    
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 26pt;
+    font-weight: bold;      
+    text-align: center; 
+    font-family: "bebaskai",sans-serif;
+    color: #2C3D55;   
+}
+
+.subHeader{
+    margin-bottom: 5px;
+    margin-top: -10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: #2C3D55;   
+}
+
+.farRight {
+    float: right;
+    margin-top: 10px;
+}
+
+.mainHeaderImage{    
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-bottom: 5px;     
+    float: left; 
+    position: absolute;  
+    width: 55px;
+    height: 55px; 
+}
+
+.headerContent {
+    margin-bottom: 5px;
+}
+
+.rain {
+    min-width: 50px;
+    max-width: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    display: inline-block;    
+    font-size: 1.5em;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    font-family: "bebaskai",sans-serif;
+}
+
+.rainLow {
+    background-color: lightskyblue;
+}
+
+.rainMedium {
+    background-color: #3865a3;
+    color: white;
+}
+
+.rainHigh {
+    background-color: #2C3D55;
+    color: white;
+}
+
+.date {
+    min-width: 100px;
+    max-width: 100px;
+    min-height: 50px;
+    max-height: 50px;
+    display: inline-block;    
+    font-size: 1em;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;    
+}
+
+button {
+    all: unset;
+    padding: 10px;
+    background-color: #536271;
+    color: white;    
+    border-radius: 12px;
+    min-width: 100px;
+    max-width: 100px;
+    text-align: center;
+    margin: 5px;
+    font-family: "bebaskai",sans-serif;
+    display: inline-block;
+}
+
+.buttonPadding {    
+    padding: 10px;
+    min-width: 30px;
+    max-width: 30px;
+    margin: 5px;
+    display: inline-block;
+}
+
+.hidden {
+    display: inline-block;    
+}
+
+.buttonIconOnly {
+    all: unset;
+    padding: 10px;
+    background-color: #536271;
+    color: white;    
+    border-radius: 12px;
+    min-width: 25px;
+    max-width: 25px;
+    text-align: center;
+    margin: 5px;
+    font-family: "Bebas",sans-serif;
+}
+
+canvas {
+    border: 0;
+}
+
+.none {
+    display: none;    
+}
+
+.modalOverlay {    
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+.modalTools {
+    max-height: 500px;    
+    max-width: 300px;
+    min-width: 300px;    
+    margin: auto;        
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    display: block;
+    background-color: white;
+    animation-name: animatefade;
+    animation-duration: 0.4s
+}
+
+@keyframes animatefade {
+    from {opacity: 0}
+    to {opacity: 1}
+  }
+
+
+.rightAlign {
+    float: right;    
+}
+
+.redButton {
+    background-color: #715353;
+    color: white;    
+}
+
+.fileInput {
+    margin: 5px;
+    min-width: calc(100% - 10px);
+    max-width: calc(100% - 10px);
+}
+
+.modalBorder{
+    background-color: #2C3D55;    
+    padding: 3px;   
+}
+
+.dialogBorder{
+    background-color: #715353;
+    padding: 3px;   
+}
+
+.modalInner{
+    background-color: white;    
+}
+
+@media (max-width: 600px) { /*choose the width you prefer*/
+    .content {
+    min-width: 100%;
+    max-width: 100%;
+    }
+}

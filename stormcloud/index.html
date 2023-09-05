@@ -1,0 +1,171 @@
+<html>
+    <head>       
+        <title>Stormcloud</title> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="manifest" href="manifest.json" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="stylesheet" href="stormcloud.css">
+        <script src="stormcloud.js"></script>
+        <script src="db.js"></script>
+        <script src="dates.js"></script>
+        <script src="graph.js"></script>
+        <script src="reports.js"></script>
+        <script src="sw.js"></script>
+        <script src="messages.js"></script>
+    </head>
+    <body>
+        <div class="outer">
+            <div class="content">
+                <div class="headerContent">         
+                    <img src="images/logo-512.png" alt="Stormcloud Logo" class="sideBySide mainHeaderImage">
+                    <div class="sideBySide headerBlock">
+                        <div class="mainHeader">
+                        Stormcloud
+                        </div>
+                        <div class="subHeader">
+                        a simple rain gauge         
+                        </div>
+                    </div>
+                    <div class="farRight">
+                        <button type="button" class="buttonIconOnly" onclick ="stormcloud.app.openTools();"><img src="images/bars-solid.svg" alt="Menu Button" height="20" width="20"></button>
+                    </div>
+                </div>
+                <div id="mainContent">
+                    <div class="headerBar">
+                        Add Rain
+                    </div>
+                    <div class="inputOuter">                        
+                        <div class="inputDiv">
+                            <label for="iDate">Date</label>
+                            <input type="date" id="iDate" name="iDate">                            
+                        </div>
+                        <div class="inputDiv">
+                            <label for="iRain">Rain</label>
+                            <input type="number" id="iRain" name="iRain">
+                        </div>      
+                        <div class="buttonGroup">
+                            <button type="button" class="button" onclick ="stormcloud.app.addRain();">Add</button>
+                            <button type="button" class="button" onclick ="stormcloud.app.clearRain();">Reset</button>                                                                        
+                        </div>                  
+                    </div>
+                    <div class="headerBar">
+                        Filters
+                    </div>
+                    <div class="inputOuter"> 
+                        <div class="inputDiv">
+                            <label for="fromDate">From</label>
+                            <input id="fromDate" type="Date" />
+                        </div>
+                        <div class="inputDiv">
+                            <label for="toDate">To</label>
+                            <input id="toDate" type="Date" />
+                        </div>
+                        <div class="inputDiv">
+                            <label for="dateRange">Date Range</label>
+                            <select name="dateRange" id="dateRange" onchange="stormcloud.app.changeDateRange();">
+                                <option value="select">Quick Filter</option>
+                                <option value="This week">This week</option>
+                                <option value="This month">This month</option>
+                                <option value="This year">This year</option>
+                                <option value="Last week">Last week</option>
+                                <option value="Last month">Last month</option>
+                                <option value="Last year">Last year</option>
+                                <option value="Last 7 days">Last 7 days</option>
+                                <option value="Last 30 days">Last 30 days</option>
+                                <option value="Last 365 days">Last 365 days</option>
+                                <option value="All">All</option>
+                            </select>                                         
+                        </div>                        
+                        <div class="inputDiv">
+                            <label for="sortMode">Sort Mode</label>
+                            <select name="sortMode" id="sortMode" onchange="stormcloud.app.changeDateRange();">
+                                <option value="Date Desc">Date Desc</option>
+                                <option value="Date Asc">Date Asc</option>
+                                <option value="Rain Desc">Rain Desc</option>
+                                <option value="Rain Asc">Rain Asc</option>                        
+                            </select>                                         
+                        </div>                        
+                        <div class="inputDiv">
+                            <label for="graphType">Graph Type</label>
+                            <select name="graphType" id="graphType" onchange="stormcloud.app.changeGraphType();">
+                                <option value="Yearly">Yearly</option>
+                                <option value="Seasonal">Seasonal</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Monthly Compare">Monthly Compare</option>
+                                <option value="Seasonal Compare">Seasonal Compare</option>                    
+                            </select>                                         
+                        </div>
+                        <div class="buttonGroup">
+                            <button type="button" class="button" onclick ="stormcloud.app.filterRain();">Filter</button>                                
+                            <button type="button" class="button" onclick ="stormcloud.app.changeSortMode();">Sort</button>                                                                    
+                        </div>
+                    </div>
+                    <div class="headerBar">
+                        Rain Graph
+                    </div>            
+                    <div style="display: inline-block; min-width: 100%; min-height: 280; max-width: 100%; max-height: 280; overflow-y: hidden; overflow-x: auto;">
+                        <canvas width="320" height="230" id="mainGraph"></canvas>            
+                    </div>			                        
+                    <div class="headerBar">
+                        Rain List
+                    </div>
+                    <div class="outer">
+                        <div id = "rainList">
+                        </div>
+                    </div>
+                </div>
+                <div id="modalTools" class="modalOverlay none">                    
+                    <div class="modalTools">                                                
+                        <div class="modalBorder">
+                            <div class="modalInner">
+                                <div class="headerBar">
+                                    Export Backup
+                                </div>            
+                                <div>
+                                    <button type="button" class="button" onclick ="stormcloud.app.exportRain();">Export Backup</button>                                                                                
+                                <div class="headerBar">
+                                    Import Data
+                                </div>            
+                                <div>
+                                    <input id="file" type="file" class="fileInput"/>
+                                </div>
+                                    <button type="button" class="button" onclick ="stormcloud.app.importRain();">Import Data</button>                                                                                                        
+                                <div class="headerBar">
+                                    Delete All Data
+                                </div>         
+                                    <button type="button" class="button redButton" onclick ="stormcloud.app.deleteDatabase();">Delete all Data</button>                                                                                                                                
+                                </div>
+                                <div class="headerBar">
+                                    &nbsp;
+                                </div>                        
+                                <button type="button" class="button rightAlign" onclick ="stormcloud.app.closeTools();">Close Tools</button>                                                                                                                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="modalDialog" class="modalOverlay none">                    
+                    <div class="modalTools">                                                
+                        <div class="dialogBorder">
+                            <div class="modalInner">
+                                <div id="modalHeader" class="headerBar redButton">
+                                    Are you sure you want to do this?
+                                </div>            
+                                <div id="modalText">
+                                    This will delete all data from the app.
+                                </div>
+                                <button type="button" class="button" onclick ="stormcloud.messages.okay();">Okay</button>                                                                                                                                
+                                <button type="button" class="button rightAlign" onclick ="stormcloud.messages.close();">Cancel</button>                                                                                                                                
+                                <div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
