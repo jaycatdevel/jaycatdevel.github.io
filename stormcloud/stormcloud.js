@@ -22,24 +22,32 @@ stormcloud.app = (function(){
 
     async function _addRain(bAddOnly, AddedRain){
         let vDate = stormcloud.dates.getDate(document.getElementsByName("iDate")[0]);
-        let vRain = document.getElementsByName("iRain")[0].value;
-        if(AddedRain){
-            vDate = stormcloud.dates.getDate(AddedRain.date);
-            vRain = AddedRain.rain;            
+        let vRain = document.getElementsByName("iRain")[0].value;        
+        if(vRain === "" || parseFloat(vRain)<=0 || vDate.date === ""){
+            stormcloud.messages.open({
+                title: "No Rain Added",
+                message: "Please add a valid rain entry"                
+            });            
         }
+        else{
+            if(AddedRain){
+                vDate = stormcloud.dates.getDate(AddedRain.date);
+                vRain = AddedRain.rain;            
+            }
 
-        let vRainObj ={
-            date: vDate.date,
-            year: vDate.year,
-            month: vDate.month,
-            day: vDate.day,
-            rain: vRain
-        };
+            let vRainObj ={
+                date: vDate.date,
+                year: vDate.year,
+                month: vDate.month,
+                day: vDate.day,
+                rain: vRain
+            };
 
-        await stormcloud.db.addRain(vRainObj);
-        if(!bAddOnly){
-            _filterRain();
-            _initInputs();
+            await stormcloud.db.addRain(vRainObj);
+            if(!bAddOnly){
+                _filterRain();
+                _initInputs();
+            }
         }
     }
     
