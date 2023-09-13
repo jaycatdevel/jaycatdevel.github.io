@@ -200,6 +200,8 @@ stormcloud.app = (function(){
             var reader = new FileReader();
             reader.onload = function(event) {
                 _addBulkRain(event.target.result);                
+                let vFile = document.getElementById('file');
+                vFile.value = null;
             }
             reader.readAsText(file);
         }
