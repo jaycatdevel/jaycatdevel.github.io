@@ -250,17 +250,21 @@ stormcloud.app = (function(){
         let vFromDate = stormcloud.dates.getDate(document.getElementById("fromDate"));
         let vToDate = stormcloud.dates.getDate(document.getElementById("toDate"));                
         
-        if (vFromDate.date ==="" && vToDate.date ===""){
+        if (vFromDate.date ===""){
             vFromDate = stormcloud.dates.getMinDate();
+        }
+        
+        if (vToDate.date ===""){
             vToDate = stormcloud.dates.getMaxDate();
-        } else{            
-            let testTo = new Date(document.getElementById("toDate").valueAsNumber);
-            let testFrom = new Date(document.getElementById("fromDate").valueAsNumber);
-            if(testTo < testFrom) {
-                document.getElementById("fromDate").valueAsNumber = testTo;
-                document.getElementById("toDate").valueAsNumber = testFrom;
-                return _filterRain(); // Start again
-            }
+        }
+            
+                    
+        let testTo = new Date(document.getElementById("toDate").valueAsNumber);
+        let testFrom = new Date(document.getElementById("fromDate").valueAsNumber);
+        if(testTo < testFrom) {
+            document.getElementById("fromDate").valueAsNumber = testTo;
+            document.getElementById("toDate").valueAsNumber = testFrom;
+            return _filterRain(); // Start again
         }        
 
         if(vFromDate.date !=="" && vToDate.date !==""){            
