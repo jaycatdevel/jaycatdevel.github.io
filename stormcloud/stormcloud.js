@@ -243,7 +243,8 @@ stormcloud.app = (function(){
         if(vRange){
             document.getElementById("fromDate").value = vRange.from.date;
             document.getElementById("toDate").value = vRange.to.date;         
-        }        
+        }    
+        _updateGraph();    
     }
 
     async function _filterRain(){
@@ -314,7 +315,7 @@ stormcloud.app = (function(){
 
     function _changeGraphType(){
         vGraphType = document.getElementById("graphType").value;                        
-        _filterRain();
+        _updateGraph();
     }
 
     function _openTools(){
@@ -325,6 +326,10 @@ stormcloud.app = (function(){
     function _closeTools(){
         let vTools = document.getElementById("modalTools");
         vTools.setAttribute("class","modalOverlay none");
+    }
+
+    function _updateGraph(){    
+        _changeSortMode();
     }
 
     return {
@@ -339,7 +344,8 @@ stormcloud.app = (function(){
         changeSortMode: _changeSortMode,
         changeGraphType: _changeGraphType,
         openTools: _openTools,
-        closeTools: _closeTools
+        closeTools: _closeTools,
+        updateGraph: _updateGraph
     };
 })();
 

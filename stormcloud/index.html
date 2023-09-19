@@ -58,11 +58,11 @@
                     <div class="inputOuter"> 
                         <div class="inputDiv">
                             <label for="fromDate">From</label>
-                            <input id="fromDate" type="Date" />
+                            <input id="fromDate" type="Date" onchange="stormcloud.app.updateGraph();"/>
                         </div>
                         <div class="inputDiv">
                             <label for="toDate">To</label>
-                            <input id="toDate" type="Date" />
+                            <input id="toDate" type="Date" onchange="stormcloud.app.updateGraph();"/>
                         </div>
                         <div class="inputDiv">
                             <label for="dateRange">Date Range</label>
@@ -99,11 +99,7 @@
                                 <option value="Monthly Compare">Monthly Compare</option>
                                 <option value="Seasonal Compare">Seasonal Compare</option>                    
                             </select>                                         
-                        </div>
-                        <div class="buttonGroup">
-                            <button type="button" class="button" onclick ="stormcloud.app.filterRain();">Filter</button>                                
-                            <button type="button" class="button" onclick ="stormcloud.app.changeSortMode();">Sort</button>                                                                    
-                        </div>
+                        </div>                        
                     </div>
                     <div class="headerBar">
                         Rain Graph
