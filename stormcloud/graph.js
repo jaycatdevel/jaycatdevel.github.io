@@ -5,11 +5,13 @@ stormcloud.graph = (function(){
 
     var _page = undefined;
 	var _width = 320;
-	var _height = 240;
+	var _height = 260;
     let vWidth = 20;
     let vHeight;
     let vXMargin	
     let _ratio = 1;
+    let _vHeightOffset = 52;
+    let _vHeightOffsetDefault = 52;
 
     function _init(){
         _initCanvas();
@@ -49,7 +51,19 @@ stormcloud.graph = (function(){
         return Math.floor(Math.random() * max);
     }
 
-	function _draw(vItems){              
+	function _draw(vItems,vOptions){       
+        let vDrawLabels = true;
+        
+        _vHeightOffset = _vHeightOffsetDefault;
+        if(vOptions){
+            if(vOptions.labels !== undefined){
+                vDrawLabels = vOptions.labels;                        
+            }
+            if(vOptions.fullText === true){
+                _vHeightOffset = _vHeightOffsetDefault + 30;
+            }
+        }        
+        
 		_clear();		
 		
         let vMaxHeight = 0;
@@ -58,7 +72,7 @@ stormcloud.graph = (function(){
                 vMaxHeight = vItems[i].rain;
             }
         }                
-        vHeight =  (_height - 100) / vMaxHeight;
+        vHeight =  (_height - (_vHeightOffset + 48)) / vMaxHeight;
                  
         _width = vWidth * (vItems.length + 3);
         if(_width <320){
@@ -81,7 +95,7 @@ stormcloud.graph = (function(){
                 x: i * vWidth + (vWidth/4),
                 y: _height - (vWidth/4)};
 
-            if(vGroup !== vTemp.groupLabel){
+            if(vGroup !== vTemp.groupLabel && vDrawLabels){                
                 _writeLabel(vTemp,vFirstLabel);
                 vGroup = vTemp.groupLabel;
                 vFirstLabel = false;
@@ -100,7 +114,7 @@ stormcloud.graph = (function(){
 			
 
     function _drawGrid(vMax, vHeight){
-        let vY =_height - 52;
+        let vY =_height -_vHeightOffset;
         let vPage = _page;			
         
         vPage.textAlign = "left";
@@ -109,7 +123,7 @@ stormcloud.graph = (function(){
         // Draw 0
         vPage.fillText("0", 3, vY);
         // Draw vMax        
-        let vMaxHeight = _height - (vWidth/4) - 50 + (vMax * vHeight * -1)
+        let vMaxHeight = _height - (vWidth/4) - (_vHeightOffset - 2) + (vMax * vHeight * -1)
         vPage.fillText(vMax, 3, vMaxHeight);
 
         vXMargin = vPage.measureText(vMax).width + 6;	
@@ -145,10 +159,10 @@ stormcloud.graph = (function(){
 
             // Set the fill style and draw a rectangle
             vPage.fillStyle = gradient;
-            vPage.fillRect(o.x + vXMargin, o.y - 50,o.width, o.height);
+            vPage.fillRect(o.x + vXMargin, o.y - (_vHeightOffset - 2),o.width, o.height);
             vPage.strokeStyle = lineGradient;			
 			vPage.beginPath();
-			vPage.rect(o.x + vXMargin, o.y - 50,o.width, o.height);
+			vPage.rect(o.x + vXMargin, o.y - (_vHeightOffset - 2),o.width, o.height);
 			vPage.stroke();	
             vPage.fillStyle = "#000000";;		
 		}		
@@ -160,7 +174,7 @@ stormcloud.graph = (function(){
             vPage.textAlign = "center";
 			vPage.font = "15px bebaskai";		            
             			
-            var vText = vPage.fillText(o.data.rain, o.x + (vWidth / 4) + vXMargin,o.y + o.height - 55);	            
+            var vText = vPage.fillText(o.data.rain, o.x + (vWidth / 4) + vXMargin,o.y + o.height - (_vHeightOffset +3));	            
             
 		}		
 	}
@@ -175,7 +189,7 @@ stormcloud.graph = (function(){
 
             if(!bHideLabel){
                 let x= 3 + vWidth;
-                let vY =_height - 52;
+                let vY =_height - _vHeightOffset;
                 vPage.beginPath();
                 vPage.setLineDash([5]);
                 vPage.strokeStyle = "#00000055";		        
@@ -198,7 +212,7 @@ stormcloud.graph = (function(){
             vPage.translate(_width,0);
             vPage.rotate(90 * (Math.PI / 180));
             
-            var vText = vPage.fillText(o.text, o.y - 45, _width - (o.x) - vXMargin);	                        
+            var vText = vPage.fillText(o.text, o.y - (_vHeightOffset - 7), _width - (o.x) - vXMargin);	                        
             vPage.restore();				
 		}		
 	}

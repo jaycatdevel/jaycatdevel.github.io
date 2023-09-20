@@ -31,7 +31,8 @@ stormcloud.reports = (function(){
     }
 
     async function _generateDateRangeReport(from,to,pMode){
-        let vRainList = await stormcloud.db.filterRain(from,to,{dateSort: "date desc", rainDirec: false});        
+        let vRainList = await stormcloud.db.filterRain(from,to,{rainDirec: false});                        
+        let vFullLabels = stormcloud.db.getRainDirection() !== undefined;        
         let vItems;
         if(vRainList && vRainList.length > 0){
             let vFirst = vRainList[0].date;
@@ -52,7 +53,7 @@ stormcloud.reports = (function(){
                 default:
                     vItems = stormcloud.dates.getEmptyDates(vFirst,vlast);            
                     break;
-            }            
+            }  
             
             function _testDate(from,to){
                 switch(pMode.toLowerCase()){
@@ -105,14 +106,23 @@ stormcloud.reports = (function(){
                             break;
                         case "monthly":
                             vItems[i].label= stormcloud.dates.getMonthText(vItems[i].date).substring(0,3);
+                            if(vFullLabels){
+                                vItems[i].label += " " + vItems[i].year;
+                            }
                             vItems[i].groupLabel= vItems[i].year;;
                             break;
                         case "seasonal":
                             vItems[i].label= stormcloud.dates.getSeasonText(vItems[i].date).substring(0,3);
+                            if(vFullLabels){
+                                vItems[i].label += " " + vItems[i].year;
+                            }
                             vItems[i].groupLabel= vItems[i].year;;
                             break;
                         default:
                             vItems[i].label= stormcloud.dates.getShortText(vItems[i].date);
+                            if(vFullLabels){
+                                vItems[i].label += "/" + vItems[i].year;
+                            }
                             vItems[i].groupLabel= stormcloud.dates.getMonthText(vItems[i].date);
                             break;
                     }     
@@ -121,8 +131,17 @@ stormcloud.reports = (function(){
                     if(vBreak){                        
                         break;
                     }
-                }                
-                stormcloud.graph.draw(vItems);            
+                }                  
+                                
+                let vOptions = {};
+                if(stormcloud.db.getRainDirection()){
+                    vItems.sort(stormcloud.db.sortRain);                    
+                    vItems = vItems.filter((o) => { return o.rain !== 0;});
+                    vOptions.labels = false;
+                    vOptions.fullText = true;
+                }
+                vItems.reverse(); //Graph runs in reverse mode to the list.
+                stormcloud.graph.draw(vItems,vOptions);            
             }
         } else{            
             stormcloud.graph.clear();
@@ -130,7 +149,8 @@ stormcloud.reports = (function(){
     }
 
     async function _generateComparisonReport(from,to,pMode){
-        let vRainList = await stormcloud.db.filterRain(from,to,{dateSort: "date desc", rainDirec: false});        
+        let vRainList = await stormcloud.db.filterRain(from,to,{rainDirec: false});        
+        let vFullLabels = stormcloud.db.getRainDirection() !== undefined;        
         let vItems;
         if(vRainList && vRainList.length > 0){
             let vFirst = vRainList[0].date;
@@ -145,7 +165,7 @@ stormcloud.reports = (function(){
             for(let i = 0, j = vYears.length; i <j;i++){                
                 switch(pMode.toLowerCase()){
                     case "seasonal compare":                        
-                        vItems = stormcloud.dates.getEmptySeasons(vFirst,vlast);            
+                        vItems = stormcloud.dates.getEmptySeasons(vFirst,vlast);                                    
                         break;                
                     case "monthly compare":                        
                         vItems = stormcloud.dates.getEmptyMonths(vFirst,vlast);            
@@ -217,10 +237,16 @@ stormcloud.reports = (function(){
                     switch(pMode.toLowerCase()){
                         case "seasonal compare":
                             vItems[i].label= vItems[i].year;
+                            if(vFullLabels){
+                                vItems[i].label = stormcloud.dates.getSeasonText(vItems[i].date).substring(0,3) +  " " + vItems[i].year;
+                            }
                             vItems[i].groupLabel= stormcloud.dates.getSeasonText(vItems[i].date);
                             break;                        
                         case "monthly compare":
                             vItems[i].label= vItems[i].year;
+                            if(vFullLabels){
+                                vItems[i].label = stormcloud.dates.getMonthText(vItems[i].date).substring(0,3) +  " " + vItems[i].year;
+                            }
                             vItems[i].groupLabel= stormcloud.dates.getMonthText(vItems[i].date).substring(0,3);
                             break;       
                     }
@@ -230,7 +256,16 @@ stormcloud.reports = (function(){
                         break;
                     }
                 }                
-                stormcloud.graph.draw(vItems);            
+
+                let vOptions = {};
+                if(stormcloud.db.getRainDirection()){
+                    vItems.sort(stormcloud.db.sortRain);                    
+                    vItems = vItems.filter((o) => { return o.rain !== 0;});
+                    vOptions.labels = false;
+                    vOptions.fullText = true;
+                }
+                vItems.reverse(); //Graph runs in reverse mode to the list.
+                stormcloud.graph.draw(vItems,vOptions);            
             }
         } else{            
             stormcloud.graph.clear();

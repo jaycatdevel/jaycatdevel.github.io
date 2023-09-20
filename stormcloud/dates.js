@@ -170,6 +170,15 @@ stormcloud.dates = (function(){
     function _getEmptyDates(from,to){
         if(from && to){
             let dates = [];
+            let vSwitch = false;
+
+            if(to<from){
+                let vMiddle = to;
+                to = from;
+                from = vMiddle;
+                vSwitch = true;                
+            }
+            
             let currentDate = new Date(from);
             let vTo = new Date(to);            
             vTo.setDate(vTo.getDate() + 1);
@@ -177,6 +186,11 @@ stormcloud.dates = (function(){
                 dates.push(_getDate(new Date(currentDate)));
                 currentDate.setDate(currentDate.getDate() + 1);
             }
+
+            if(vSwitch){
+                dates.reverse();
+            }
+
             return dates;  
         }        
     }
@@ -184,6 +198,14 @@ stormcloud.dates = (function(){
     function _getEmptyYears(from,to){
         if(from && to){
             let dates = [];
+            let vSwitch = false;
+
+            if(to<from){
+                let vMiddle = to;
+                to = from;
+                from = vMiddle;
+                vSwitch = true;                
+            }
             var first = new Date(new Date(from).getFullYear(), 0, 1);
             let currentDate = new Date(first);
             let vTo = new Date(new Date(to).getFullYear(), 0, 1);
@@ -192,6 +214,11 @@ stormcloud.dates = (function(){
                 dates.push(_getDate(new Date(currentDate)));
                 currentDate.setFullYear(currentDate.getFullYear() + 1);
             }            
+
+            if(vSwitch){
+                dates.reverse();
+            }
+
             return dates;  
         }        
     }
@@ -199,6 +226,15 @@ stormcloud.dates = (function(){
     function _getEmptyMonths(from,to){
         if(from && to){
             let dates = [];
+            let vSwitch = false;
+
+            if(to<from){
+                let vMiddle = to;
+                to = from;
+                from = vMiddle;
+                vSwitch = true;                
+            }
+
             let currentDate = new Date(from);
             let vTo = new Date(to);                        
             vTo.setMonth(vTo.getMonth() + 1);            
@@ -206,6 +242,11 @@ stormcloud.dates = (function(){
                 dates.push(_getDate(new Date(currentDate)));
                 currentDate.setMonth(currentDate.getMonth() + 1);                
             }
+
+            if(vSwitch){
+                dates.reverse();
+            }
+
             return dates;  
         }        
     }
@@ -213,6 +254,16 @@ stormcloud.dates = (function(){
     function _getEmptySeasons(from,to){        
         if(from && to){
             let dates = [];
+
+            let vSwitch = false;
+
+            if(to<from){
+                let vMiddle = to;
+                to = from;
+                from = vMiddle;
+                vSwitch = true;                
+            }
+            
             let currentDate = new Date(from);
             let vTo = new Date(to);            
             vTo.setMonth(vTo.getMonth() + 1);
@@ -226,7 +277,11 @@ stormcloud.dates = (function(){
                     
                 }
                 currentDate.setMonth(currentDate.getMonth() + 1);                
-            }            
+            }
+            
+            if(vSwitch){
+                dates.reverse();
+            }
             return dates;  
         }
     }

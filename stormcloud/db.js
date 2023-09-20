@@ -113,7 +113,7 @@ stormcloud.db = (function(){
         if(bOptions && bOptions.rainDirec !== undefined){
             vRainDirec = bOptions.rainDirec;
         }
-        if(bRainDirec){
+        if(vRainDirec){
             vArray.sort(_sortRain)
         }
         return vArray;
@@ -195,6 +195,10 @@ stormcloud.db = (function(){
         bRainDirec = vDirec.toLowerCase();        
     }
 
+    function _getRainDirection(){
+        return bRainDirec;
+    }
+
     return{
         init: _init,
         addRain: _addRain,
@@ -203,6 +207,8 @@ stormcloud.db = (function(){
         filterRain: _filterRain,
         deleteDatabase: _deleteDatabase,
         setDataDirection: _setDataDirection,
-        setRainDirection: _setRainDirection
+        setRainDirection: _setRainDirection,
+        sortRain: _sortRain,
+        getRainDirection: _getRainDirection
     };
 })();
