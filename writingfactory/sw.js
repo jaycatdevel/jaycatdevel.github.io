@@ -1,6 +1,6 @@
 const version = "0.4";
 
-var cacheName = 'stormcloud';
+var cacheName = 'writingfactory';
 var filesToCache = [
   '/',  
   '/index.html', 
