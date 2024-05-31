@@ -1,0 +1,10 @@
+{
+  "name": "Writing Factory",
+  "short_name": "wf",
+  "lang": "en-US",
+  "start_url": "/writingfactory/index.html",
+  "display": "standalone",
+  "background_color": "white",
+  "theme_color": "white",
+  "version": "0.4"
+}

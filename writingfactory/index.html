@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="manifest" href="manifest.json" />
+
+        <link rel="stylesheet" href="styles.css">
+        <script src = "curry.js"></script>        
+        <script src = "app.js"></script>
+        <script src = "lists.js"></script>
+        <script src = "authors.js"></script>
+        <script src = "projects.js"></script>
+        <script src = "entries.js"></script>
+        <script src = "notes.js"></script>
+        <script src = "screen.js"></script>
+        <script src = "projectsList.js"></script>
+        <script src = "entriesList.js"></script>
+        <script src = "notesList.js"></script>
+        <script src = "entry.js"></script>
+        <script src = "project.js"></script>
+        <script src = "note.js"></script>
+        <script src = "database.js"></script>
+        <script src="sw.js"></script>
+    </head>
+    <body>
+        <div class="fullContent">
+            <div id="menuBar">                
+                <div class="menuItem">
+                    <button type="button" onclick="wf.entriesList.addEntry();">Insert Entry</button>
+                </div>
+                <div class="menuItem">
+                    <button type="button" onclick="wf.projectsList.addProject();">Add Project</button>
+                </div>
+                <div class="menuItem">
+                    <button type="button" onclick="wf.notesList.addNote();">Add Project Note</button>
+                </div>
+                <div class="menuItem">
+                    <button type="button" onclick="wf.notesList.addNote(true);">Add Entry Note</button>
+                </div>
+            </div>
+            <div id="projectWrapper" class="wrapper">
+                <div id="projectsList"></div>
+            </div>   
+            <div class="mainBox">
+                <div class="content">
+                    <div class="scroller box">
+                        <div id="entriesList"></div>
+                    </div>
+                    <div class="contentMiddle">                        
+                        <div class="scroller textBox" onclick="wf.entry.focusText();">
+                            <div class="mainText" id="entryText" contenteditable="true" onblur="wf.entry.saveText();" onkeyup="wf.entry.keyUp();"></div>
+                        </div>
+                    </div>
+                    <div class="scroller box">
+                        <div id="notesList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
