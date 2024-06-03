@@ -109,7 +109,7 @@ body {
 }
 
 .entry {
-    background-color: rgb(224, 190, 162);
+    background-color: rgb(224, 190, 162);    
 }
 
 .textBox {    
@@ -118,3 +118,11 @@ body {
     background-color: rgb(226, 226, 226);
 }
 
+.entryDisp {
+    display: inline-block;
+}
+
+.wordCountDisp {
+    margin-left: 5px;
+    float: right;
+}

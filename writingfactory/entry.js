@@ -5,6 +5,10 @@ wf.entry = (function(){
 
     let _currentEntry;
     let _textModified = false;
+    let _wordCountTimeout = undefined;
+
+    const _entryPrefix = "Entry_"; // DUPE!!!
+
     function _loadEntry(entry){
         _currentEntry = entry;
         _loadEntryText();
@@ -24,6 +28,7 @@ wf.entry = (function(){
                 div.innerHTML = textContent;
             }
             _textModified = false;
+            _wordCount();
         }
     }
 
@@ -37,12 +42,39 @@ wf.entry = (function(){
                 vText = div.innerHTML;
             }            
             _currentEntry.text = vText;
+            _currentEntry.wordcount = _wordCount();
             await wf.entries.save(_currentEntry);
         }
     }
 
+    function _wordCount(){
+		var vText = document.getElementById("entryText").textContent.trim();
+		var vLength = _getWords(vText);		
+		document.getElementById("wordCount").textContent = vLength.toFixed(0);			
+        if(_currentEntry){
+            let vEntry = _entryPrefix + "_wordcount" + _currentEntry.key.toFixed(0);
+            document.getElementById(vEntry).textContent = vLength.toFixed(0);			
+        }
+        return vLength;
+	}
+	
+	function _getWords(o){
+		var vLength = 0;
+		if(o){
+			var vSplit = o.split(/[\s,]+/);			
+			for(var i = 0, j = vSplit.length; i < j; i++){
+				if(vSplit.length > 0){
+					vLength++;
+				}
+			}
+		}
+		return vLength;
+	}
+
     function _keyUp(){
         _textModified = true;
+        clearTimeout(_wordCountTimeout);
+        _wordCountTimeout = setTimeout(_wordCount,1000);	
     }
 
     function _focusText(){

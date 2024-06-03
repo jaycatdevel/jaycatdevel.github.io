@@ -24,18 +24,31 @@ wf.entriesList = (function(){
     }
 
     function _drawEntry(entry){        
-        const newDiv = document.createElement("div");
-        newDiv.classList.add("note");
-        newDiv.classList.add("entry");
-        newDiv.id = _entryPrefix + entry.key.toFixed(0);
-        newDiv.onclick = _entryClick;
-        newDiv.ondblclick = wf.entry.editEntry;
+        const parentDiv = document.createElement("div");
+        const entryDiv = document.createElement("div");
+        const wordcountDiv = document.createElement("div");
+        parentDiv.classList.add("note");
+        parentDiv.classList.add("entry");
+        entryDiv.classList.add("entryDisp");
+        entryDiv.id = _entryPrefix + entry.key.toFixed(0);
+        entryDiv.onclick = _entryClick;
+        entryDiv.ondblclick = wf.entry.editEntry;
         let vText = entry.name;        
-        const newContent = document.createTextNode(vText);
-        newDiv.appendChild(newContent);
-
+        const entryContent = document.createTextNode(vText);
+        entryDiv.appendChild(entryContent);
+        let vwordcount = entry.wordcount;
+        if(!vwordcount){
+            vwordcount = "";
+        }
+        const wordcountContent = document.createTextNode(vwordcount);
+        wordcountDiv.appendChild(wordcountContent);
+        wordcountDiv.classList.add("entryDisp");
+        wordcountDiv.classList.add("wordCountDisp");
+        wordcountDiv.id = _entryPrefix + "_wordcount" + entry.key.toFixed(0);
         const currentDiv = document.getElementById(_listName);
-        currentDiv.appendChild(newDiv);        
+        parentDiv.appendChild(entryDiv);        
+        parentDiv.appendChild(wordcountDiv);        
+        currentDiv.appendChild(parentDiv);        
     }
 
     async function _addEntry(){
