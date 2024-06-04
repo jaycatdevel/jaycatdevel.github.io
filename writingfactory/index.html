@@ -33,6 +33,15 @@
                 <div class="menuItem">
                     <button type="button" onclick="wf.notesList.addNote(true);">Add Entry Note</button>
                 </div>
+                <div class="menuItem">
+                    <button type="button" onclick="wf.entry.clipboard();">Copy text</button>
+                </div>
+                <div class="menuItem">
+                    <button type="button" onclick="wf.entry.exportNote();">Export Note</button>
+                </div>
+                <div class="menuItem">
+                    <button type="button" onclick="wf.project.exportProject();">Export Project</button>
+                </div>
             </div>
             <div id="projectWrapper" class="wrapper">
                 <div id="projectsList"></div>
@@ -44,7 +53,7 @@
                     </div>
                     <div class="contentMiddle">                        
                         <div class="scroller textBox" onclick="wf.entry.focusText();">
-                            <div class="mainText" id="entryText" contenteditable="true" onblur="wf.entry.saveText();" onkeyup="wf.entry.keyUp();"></div>
+                            <div class="mainText" id="entryText" contenteditable="true"></div>
                         </div>
                     </div>
                     <div class="scroller box">

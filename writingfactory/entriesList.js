@@ -19,8 +19,7 @@ wf.entriesList = (function(){
 
     async function _drawEntries(){                
         wf.lists.draw(_entriesList,_listName,_drawEntry);
-        _currentEntry = undefined;
-        _selectEntry(wf.entries.getCurrentEntry());
+        _currentEntry = undefined;        
     }
 
     function _drawEntry(entry){        
@@ -31,7 +30,8 @@ wf.entriesList = (function(){
         parentDiv.classList.add("entry");
         entryDiv.classList.add("entryDisp");
         entryDiv.id = _entryPrefix + entry.key.toFixed(0);
-        entryDiv.onclick = _entryClick;
+        parentDiv.onclick = _entryClick;
+        parentDiv.id = _entryPrefix + "Parent" + entry.key.toFixed(0);
         entryDiv.ondblclick = wf.entry.editEntry;
         let vText = entry.name;        
         const entryContent = document.createTextNode(vText);
@@ -41,8 +41,7 @@ wf.entriesList = (function(){
             vwordcount = "";
         }
         const wordcountContent = document.createTextNode(vwordcount);
-        wordcountDiv.appendChild(wordcountContent);
-        wordcountDiv.classList.add("entryDisp");
+        wordcountDiv.appendChild(wordcountContent);        
         wordcountDiv.classList.add("wordCountDisp");
         wordcountDiv.id = _entryPrefix + "_wordcount" + entry.key.toFixed(0);
         const currentDiv = document.getElementById(_listName);
@@ -73,7 +72,7 @@ wf.entriesList = (function(){
     async function _entryClick(){
         if(this && this.id){
             let _newId = this.id;
-            let vKey = parseInt(_newId.replace(_entryPrefix,""));            
+            let vKey = parseInt(_newId.replace(_entryPrefix + "Parent",""));            
             _selectEntry(await wf.entries.getSingleEntry(vKey));            
         }        
     }
@@ -90,8 +89,15 @@ wf.entriesList = (function(){
         }                
     }
 
+    function _selectFirstEntry(){
+        if(_entriesList && _entriesList.length >0){            
+            _selectEntry(_entriesList[0]);
+        }
+    }
+
     return {
         init: _init,
-        addEntry: _addEntry
+        addEntry: _addEntry,
+        selectFirstEntry: _selectFirstEntry
     };
 })();

@@ -120,9 +120,14 @@ body {
 
 .entryDisp {
     display: inline-block;
+    min-width: 80px;
+    max-width: 80px;
+    word-break: break-word;
+    white-space: normal;
 }
 
 .wordCountDisp {
+    display: inline-block;
     margin-left: 5px;
     float: right;
 }

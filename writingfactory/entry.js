@@ -7,6 +7,9 @@ wf.entry = (function(){
     let _textModified = false;
     let _wordCountTimeout = undefined;
 
+    let _flagSave = false;
+    let _flagNew = false;
+
     const _entryPrefix = "Entry_"; // DUPE!!!
 
     function _loadEntry(entry){
@@ -33,7 +36,7 @@ wf.entry = (function(){
     }
 
     async function _saveText(){
-        if(_currentEntry && _textModified){
+        if(_currentEntry && _textModified){            
             let div = document.getElementById("entryText");
             let vText;
             try{
@@ -52,7 +55,7 @@ wf.entry = (function(){
 		var vLength = _getWords(vText);		
 		document.getElementById("wordCount").textContent = vLength.toFixed(0);			
         if(_currentEntry){
-            let vEntry = _entryPrefix + "_wordcount" + _currentEntry.key.toFixed(0);
+            let vEntry = _entryPrefix + "_wordcount" + _currentEntry.key.toFixed(0);            
             document.getElementById(vEntry).textContent = vLength.toFixed(0);			
         }
         return vLength;
@@ -71,10 +74,33 @@ wf.entry = (function(){
 		return vLength;
 	}
 
-    function _keyUp(){
+    async function _keyUp(){
         _textModified = true;
         clearTimeout(_wordCountTimeout);
         _wordCountTimeout = setTimeout(_wordCount,1000);	
+        if(_flagSave){
+            await _saveText();
+            _flagSave = false;
+        }
+        if(_flagNew){
+            _flagNew = false;
+            await _saveText();
+            await wf.entriesList.addEntry();
+        }
+    }
+
+    function _keyDown(e){                
+        if(e && e.ctrlKey){
+            switch(e.key){
+                case "s": 
+                    _flagSave = true;
+                    return false;            
+                case "Enter":
+                    _flagNew = true;
+                    return false;            
+            }
+            
+        }
     }
 
     function _focusText(){
@@ -101,7 +127,7 @@ wf.entry = (function(){
             this.contentEditable = "true";
             this.focus();
             this.onblur = _saveEntry;
-            this.onkeyup = _keyUp;
+            this.onkeyup = _keyUp;            
         }
     }
 
@@ -112,11 +138,48 @@ wf.entry = (function(){
         }
     }
 
+    function _clipboard(){
+        const cliptext = document.getElementById("entryText");
+        let vText = cliptext.innerText;
+        while(vText.indexOf("\n\n")>=0){
+            vText = vText.replace("\n\n","\Z");
+        }
+
+        while(vText.indexOf("\Z")>=0){
+            vText = vText.replace("\Z","\n");
+        }
+        
+        navigator.clipboard.writeText(vText);
+    }
+
+    function _resetEntry(){
+        clearTimeout(_wordCountTimeout);
+        _currentEntry = null;
+    }
+
+    function _exportNote(){
+        const cliptext = document.getElementById("entryText");
+        let vText = cliptext.innerText;
+        while(vText.indexOf("\n\n")>=0){
+            vText = vText.replace("\n\n","\Z");
+        }
+
+        while(vText.indexOf("\Z")>=0){
+            vText = vText.replace("\Z","\n");
+        }
+        
+        navigator.clipboard.writeText(vText);
+    }
+
     return {
         loadEntry: _loadEntry,
         saveText: _saveText,
         keyUp: _keyUp,
+        keyDown: _keyDown,
         focusText: _focusText,
-        editEntry: _editEntry
+        editEntry: _editEntry,
+        clipboard: _clipboard,
+        resetEntry: _resetEntry,
+        exportNote: _exportNote
     };
 })();

@@ -28,7 +28,7 @@ wf.entries = (function(){
         return  await wf.db.getAll(_tableName,"project",{only: projectName});
     }
 
-    function _getCurrentEntry(){
+    function _getCurrentEntry(){        
         return _currentEntry;
     }
 

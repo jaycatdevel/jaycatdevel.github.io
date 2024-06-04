@@ -45,10 +45,13 @@ wf.projectsList = (function(){
         _drawProjects();
     }
 
-    function _selectProject(project){                
-        if(project){
+    async function _selectProject(project){                
+        if(project){            
             _highlightProject(project);
-            wf.project.loadProject(project);            
+            wf.entry.resetEntry();
+            await wf.entriesList.init();
+            await wf.notesList.init();
+            await wf.project.loadProject(project); 
         }                
     }
 
@@ -62,8 +65,6 @@ wf.projectsList = (function(){
                 currentDiv.classList.add("highlight");
             }
             _currentProject = currentDiv;            
-            wf.entriesList.init();
-            wf.notesList.init();
         }
     }
 
@@ -71,7 +72,8 @@ wf.projectsList = (function(){
         if(this && this.id){
             let _newId = this.id;
             let vKey = parseInt(_newId.replace(_projectPrefix,""));            
-            _selectProject(await wf.projects.getSingleProject(vKey));            
+            let vProj = await wf.projects.getSingleProject(vKey);            
+            _selectProject(vProj);            
         }        
     }
 

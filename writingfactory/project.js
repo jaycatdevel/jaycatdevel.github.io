@@ -6,9 +6,10 @@ wf.project = (function(){
     let _currentProject;
     let _textModified = false;
 
-    function _loadProject(project){
+    async function _loadProject(project){
         _currentProject = project;        
-        wf.notesList.init();
+        await wf.notesList.init();
+        await wf.entriesList.selectFirstEntry();
     }
 
     function _projectEdit(){
@@ -32,8 +33,13 @@ wf.project = (function(){
         _textModified = true;
     }
 
+    function _exportProject(){
+
+    }
+
     return {
         loadProject: _loadProject,
-        projectEdit: _projectEdit
+        projectEdit: _projectEdit,
+        exportProject: _exportProject
     }
 })();
