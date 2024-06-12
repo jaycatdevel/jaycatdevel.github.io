@@ -17,10 +17,12 @@ wf.notes = (function(){
 
     async function _addNote(entryNote){
         let tempEntry ="";
+        let vNoteText = "New Project Note";
         if(entryNote){
-            tempEntry = wf.entries.getCurrentEntryKey();
+            tempEntry = wf.entry.getCurrentEntryKey();
+            vNoteText = "New Entry Note";
         }
-        let tempNote = {name: "New Note", entry: tempEntry,project: wf.projects.getCurrentProjectKey()};
+        let tempNote = {name: vNoteText, entry: tempEntry,project: wf.projects.getCurrentProjectKey()};
         await wf.db.add(_tableName,[tempNote]);
         await _init();        
     }

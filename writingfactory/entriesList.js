@@ -5,8 +5,9 @@ wf.entriesList = (function(){
 
     let _entriesList;
     let _currentEntry;
-    const _listName = "entriesList";
+    const _defaultName = "entriesList";
     const _entryPrefix = "Entry_";
+    let _overrideName = undefined;
 
     async function _init(){        
         await _loadEntries();
@@ -18,7 +19,7 @@ wf.entriesList = (function(){
     }
 
     async function _drawEntries(){                
-        wf.lists.draw(_entriesList,_listName,_drawEntry);
+        wf.lists.draw(_entriesList,_listName(),_drawEntry);
         _currentEntry = undefined;        
     }
 
@@ -44,7 +45,7 @@ wf.entriesList = (function(){
         wordcountDiv.appendChild(wordcountContent);        
         wordcountDiv.classList.add("wordCountDisp");
         wordcountDiv.id = _entryPrefix + "_wordcount" + entry.key.toFixed(0);
-        const currentDiv = document.getElementById(_listName);
+        const currentDiv = document.getElementById(_listName());
         parentDiv.appendChild(entryDiv);        
         parentDiv.appendChild(wordcountDiv);        
         currentDiv.appendChild(parentDiv);        
@@ -95,9 +96,18 @@ wf.entriesList = (function(){
         }
     }
 
+    function _overrideListName(o){
+        _overrideName = o;
+    }
+
+    function _listName(){        
+        return _overrideName || _defaultName;
+    }
+
     return {
         init: _init,
         addEntry: _addEntry,
-        selectFirstEntry: _selectFirstEntry
+        selectFirstEntry: _selectFirstEntry,
+        overrideListName: _overrideListName
     };
 })();

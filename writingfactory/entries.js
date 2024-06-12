@@ -28,9 +28,7 @@ wf.entries = (function(){
         return  await wf.db.getAll(_tableName,"project",{only: projectName});
     }
 
-    function _getCurrentEntry(){        
-        return _currentEntry;
-    }
+    
 
     async function _getSingleEntry(entryID){
         _currentEntry = await wf.db.getSingleItem(_tableName,entryID);                
@@ -48,21 +46,13 @@ wf.entries = (function(){
         }
     }
 
-    function _getCurrentEntryKey(){        
-        if(_currentEntry && _currentEntry.key){
-            return _currentEntry.key;
-        }
-    }
-
     return {
         init: _init,
         getAllProjectEntries: _getAllProjectEntries,
         createIndices: _createIndices,
-        addEntry: _addEntry,
-        getCurrentEntry: _getCurrentEntry,
+        addEntry: _addEntry,        
         getSingleEntry: _getSingleEntry,
         getLastEntry: _getLastEntry,
-        save: _save,
-        getCurrentEntryKey: _getCurrentEntryKey
+        save: _save     
     };
 })();

@@ -12,10 +12,10 @@ wf.entry = (function(){
 
     const _entryPrefix = "Entry_"; // DUPE!!!
 
-    function _loadEntry(entry){
+    async function _loadEntry(entry){
         _currentEntry = entry;
         _loadEntryText();
-        wf.notesList.init();
+        await wf.notesList.init();
     }
 
     function _loadEntryText(){
@@ -53,8 +53,7 @@ wf.entry = (function(){
     function _wordCount(){
 		var vText = document.getElementById("entryText").textContent.trim();
 		var vLength = _getWords(vText);		
-		document.getElementById("wordCount").textContent = vLength.toFixed(0);			
-        if(_currentEntry){
+		if(_currentEntry){
             let vEntry = _entryPrefix + "_wordcount" + _currentEntry.key.toFixed(0);            
             document.getElementById(vEntry).textContent = vLength.toFixed(0);			
         }
@@ -141,15 +140,21 @@ wf.entry = (function(){
     function _clipboard(){
         const cliptext = document.getElementById("entryText");
         let vText = cliptext.innerText;
-        while(vText.indexOf("\n\n")>=0){
-            vText = vText.replace("\n\n","\Z");
-        }
-
-        while(vText.indexOf("\Z")>=0){
-            vText = vText.replace("\Z","\n");
-        }
         
-        navigator.clipboard.writeText(vText);
+        navigator.clipboard.writeText(_prepareNewLines(vText));
+    }
+
+    function _prepareNewLines(vText){
+        if(vText){
+            while(vText.indexOf("\n\n")>=0){
+                vText = vText.replace("\n\n","\\u0A");
+            }
+
+            while(vText.indexOf("\\u0A")>=0){
+                vText = vText.replace("\\u0A","\n");
+            }
+        }
+        return vText;
     }
 
     function _resetEntry(){
@@ -160,15 +165,18 @@ wf.entry = (function(){
     function _exportNote(){
         const cliptext = document.getElementById("entryText");
         let vText = cliptext.innerText;
-        while(vText.indexOf("\n\n")>=0){
-            vText = vText.replace("\n\n","\Z");
-        }
-
-        while(vText.indexOf("\Z")>=0){
-            vText = vText.replace("\Z","\n");
-        }
         
-        navigator.clipboard.writeText(vText);
+        navigator.clipboard.writeText(_prepareNewLines(vText));
+    }
+
+    function _getCurrentEntry(){        
+        return _currentEntry;
+    }
+
+    function _getCurrentEntryKey(){        
+        if(_currentEntry && _currentEntry.key){
+            return _currentEntry.key;
+        }
     }
 
     return {
@@ -180,6 +188,9 @@ wf.entry = (function(){
         editEntry: _editEntry,
         clipboard: _clipboard,
         resetEntry: _resetEntry,
-        exportNote: _exportNote
+        exportNote: _exportNote,
+        getCurrentEntry: _getCurrentEntry,
+        getCurrentEntryKey: _getCurrentEntryKey,
+        prepareNewLines: _prepareNewLines
     };
 })();

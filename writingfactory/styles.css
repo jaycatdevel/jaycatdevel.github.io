@@ -7,8 +7,7 @@
     margin: 2px;
     padding: 3px;
     margin-left: 5px;
-    margin-right: 5px;
-    text-wrapping: pretty;
+    margin-right: 5px;    
     background-color: rgb(169, 178, 224);
     border-color: rgb(59, 58, 78);
     border-width: 1px;
@@ -59,12 +58,12 @@ body {
 	flex-direction: row; 	
 }
 
-.Box {
+.box {
     width: 25%; 
 	max-width: 150px; 
 	min-width: 150px; 
 	margin-left: 0px;
-	margin-right: 0px;	
+	margin-right: 0px;
 }
 
 .scroller {	
@@ -118,6 +117,11 @@ body {
     background-color: rgb(226, 226, 226);
 }
 
+.projectBox {
+    margin: 5px;
+    padding: 5px;    	
+}
+
 .entryDisp {
     display: inline-block;
     min-width: 80px;
@@ -126,8 +130,11 @@ body {
     white-space: normal;
 }
 
-.wordCountDisp {
-    display: inline-block;
+.wordCountDisp {    
     margin-left: 5px;
     float: right;
+}
+
+.detailsHide {
+    display: none;
 }

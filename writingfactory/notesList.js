@@ -5,8 +5,9 @@ wf.notesList = (function(){
 
     let _notesList;
     let _currentNote;
-    const _listName = "notesList";
+    const _defaultName = "notesList";
     const _notePrefix = "Note_";
+    let _overrideName = undefined;
 
     async function _init(){        
         await _loadNotes();
@@ -18,14 +19,14 @@ wf.notesList = (function(){
         _notesList = [];        
         for(let key in _temp ){
             let vTemp = _temp[key];
-            if(vTemp.entry === "" || vTemp.entry === wf.entries.getCurrentEntryKey()){
+            if(vTemp.entry === "" || vTemp.entry === wf.entry.getCurrentEntryKey()){
                 _notesList.push(vTemp);
             }
         }
     }
 
     async function _drawNotes(){               
-        wf.lists.draw(_notesList,_listName,_drawNote);        
+        wf.lists.draw(_notesList,_listName(),_drawNote);        
     }
 
     function _drawNote(note){        
@@ -49,7 +50,7 @@ wf.notesList = (function(){
             newDiv.innerHTML = textContent;
         }
         
-        const currentDiv = document.getElementById(_listName);
+        const currentDiv = document.getElementById(_listName());
         currentDiv.appendChild(newDiv);        
     }
 
@@ -90,10 +91,17 @@ wf.notesList = (function(){
         }                
     }
 
-    
+    function _overrideListName(o){
+        _overrideName = o;
+    }
+
+    function _listName(){        
+        return _overrideName || _defaultName;
+    }
 
     return {
         init: _init,
-        addNote: _addNote
+        addNote: _addNote,
+        overrideListName: _overrideListName
     };
 })();
