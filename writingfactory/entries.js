@@ -46,6 +46,10 @@ wf.entries = (function(){
         }
     }
 
+    function _getCurrentEntry(){
+        return _currentEntry;
+    }
+
     return {
         init: _init,
         getAllProjectEntries: _getAllProjectEntries,
@@ -53,6 +57,7 @@ wf.entries = (function(){
         addEntry: _addEntry,        
         getSingleEntry: _getSingleEntry,
         getLastEntry: _getLastEntry,
-        save: _save     
+        save: _save,
+        getCurrentEntry: _getCurrentEntry     
     };
 })();

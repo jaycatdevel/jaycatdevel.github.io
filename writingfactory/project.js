@@ -19,6 +19,8 @@ wf.project = (function(){
             this.focus();
             this.onblur = _saveProject;
             this.onkeyup = _keyup;
+            this.classList.remove("mouseover");
+            this.classList.add("editable");
         }
     }
 
@@ -34,31 +36,35 @@ wf.project = (function(){
     }
 
     async function _exportProject(){
-        let _entriesList = await wf.entries.getAllProjectEntries(wf.projects.getCurrentProjectKey());        
-        let vFinal = [];
+        if(_currentProject){
+            let vFileName = _currentProject.name + ".md";
+            let _entriesList = await wf.entries.getAllProjectEntries(wf.projects.getCurrentProjectKey());        
+            let vFinal = [];
 
-        let tempDiv = document.createElement("div");
-        document.body.appendChild(tempDiv);
-        for(let i in _entriesList){
-            let entry = _entriesList[i];
-            let vTextContent = entry.text;            
-            if(!vTextContent){
-                vTextContent = "";
-            }             
-            try{
-                vTextContent = JSON.parse(vTextContent);
-            } catch{                
-            }
-            
-            tempDiv.innerHTML = vTextContent;
-            let vText = tempDiv.innerText;            
-            if(vText && vText.length > 0){
-                vFinal.push(wf.entry.prepareNewLines(vText));
-            }
-        }   
-        tempDiv.remove();             
-        let vFinalString = vFinal.join("\n\n");        
-        navigator.clipboard.writeText(vFinalString);
+            let tempDiv = document.createElement("div");
+            document.body.appendChild(tempDiv);
+            for(let i in _entriesList){
+                let entry = _entriesList[i];
+                let vTextContent = entry.text;            
+                if(!vTextContent){
+                    vTextContent = "";
+                }             
+                try{
+                    vTextContent = JSON.parse(vTextContent);
+                } catch{                
+                }
+                
+                tempDiv.innerHTML = vTextContent;
+                let vText = tempDiv.innerText;            
+                if(vText && vText.length > 0){
+                    vFinal.push(wf.entry.prepareNewLines(vText));
+                }
+            }   
+            tempDiv.remove();             
+            let vFinalString = vFinal.join("\n\n");        
+            navigator.clipboard.writeText(vFinalString);
+            wf.entry.download(vFileName,vFinalString);      
+        }
 
     }
 

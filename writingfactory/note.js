@@ -21,6 +21,8 @@ wf.note = (function(){
             this.focus();
             this.onblur = _saveNote;
             this.onkeyup = _keyUp;
+            this.classList.remove("mouseover"); 
+            this.classList.add("editable"); 
         }
     }
 

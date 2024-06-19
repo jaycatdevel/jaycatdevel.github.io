@@ -30,6 +30,7 @@ wf.entriesList = (function(){
         parentDiv.classList.add("note");
         parentDiv.classList.add("entry");
         entryDiv.classList.add("entryDisp");
+        entryDiv.classList.add("mouseover");
         entryDiv.id = _entryPrefix + entry.key.toFixed(0);
         parentDiv.onclick = _entryClick;
         parentDiv.id = _entryPrefix + "Parent" + entry.key.toFixed(0);

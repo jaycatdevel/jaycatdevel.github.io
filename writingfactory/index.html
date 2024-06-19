@@ -23,42 +23,45 @@
     </head>
     <body>
         <div class="fullContent">
-            <div id="menuBar">                
-                <div class="menuItem">
-                    <button type="button" onclick="wf.entriesList.addEntry();">Insert Entry</button>
-                </div>
-                <div class="menuItem">
-                    <button type="button" onclick="wf.projectsList.addProject();">Add Project</button>
-                </div>
-                <div class="menuItem">
-                    <button type="button" onclick="wf.notesList.addNote();">Add Project Note</button>
-                </div>
-                <div class="menuItem">
-                    <button type="button" onclick="wf.notesList.addNote(true);">Add Entry Note</button>
-                </div>
+            <div id="menuBar">                                
+                
+                
                 <div class="menuItem">
                     <button type="button" onclick="wf.entry.clipboard();">Copy text</button>
                 </div>
                 <div class="menuItem">
-                    <button type="button" onclick="wf.entry.exportNote();">Export Note</button>
+                    <button type="button" onclick="wf.entry.exportEntry();">Export Entry</button>
                 </div>
                 <div class="menuItem">
                     <button type="button" onclick="wf.project.exportProject();">Export Project</button>
-                </div>
+                </div>                
                 <div class="menuItem">
+                    <button type="button" onclick="wf.notes.textToProjectNotes();">Text to Project Notes</button>
+                </div>                
+                <!--<div class="menuItem">
                     <button type="button" onclick="wf.project.projectOverview(true);">Project Overview</button>
                 </div>
                 <div class="menuItem">
                     <button type="button" onclick="wf.project.projectOverview(false);">Writer View</button>
-                </div>
+                </div>-->
             </div>
             <div id="projectWrapper" class="wrapper">
                 <div id="projectsList"></div>
+                <div id="projectsMenu">
+                    <div class="menuItem">
+                        <button type="button" onclick="wf.projectsList.addProject();">Add Project</button>
+                    </div>
+                </div>
             </div>   
             <div id = "textEntry" class="mainBox">
                 <div class="content">
                     <div class="scroller box">
                         <div id="entriesList"></div>
+                        <div id="entryMenu">
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.entriesList.addEntry();">Insert Entry</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="contentMiddle">                        
                         <div class="scroller textBox" onclick="wf.entry.focusText();">
@@ -66,6 +69,29 @@
                         </div>
                     </div>
                     <div class="scroller box">
+                        <div id="notesMenu">
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.notesList.addNote();">Add Project Note</button>
+                            </div>
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.notesList.addNote(true);">Add Entry Note</button>
+                            </div>
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.notes.convertToProjectNote();">Convert to Project Note</button>
+                            </div>
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.notes.convertToEntryNote();">Convert to Entry Note</button>
+                            </div>
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.notesList.viewAllNotes(true);">View All Notes</button>
+                            </div>
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.notesList.viewAllNotes(false);">View Entry Notes</button>
+                            </div>
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.notes.deleteNote();">Delete Note</button>
+                            </div>
+                        </div>
                         <div id="notesList"></div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ wf.notesList = (function(){
     const _defaultName = "notesList";
     const _notePrefix = "Note_";
     let _overrideName = undefined;
+    let _allNotes = false;
 
     async function _init(){        
         await _loadNotes();
@@ -19,7 +20,7 @@ wf.notesList = (function(){
         _notesList = [];        
         for(let key in _temp ){
             let vTemp = _temp[key];
-            if(vTemp.entry === "" || vTemp.entry === wf.entry.getCurrentEntryKey()){
+            if(_allNotes || vTemp.entry === "" || vTemp.entry === wf.entry.getCurrentEntryKey()){
                 _notesList.push(vTemp);
             }
         }
@@ -35,6 +36,7 @@ wf.notesList = (function(){
         newDiv.onclick = _noteClick;
         newDiv.ondblclick = wf.note.editNote;        
         newDiv.classList.add("note");
+        newDiv.classList.add("mouseover");        
         if(note.entry === ""){
             newDiv.classList.add("projectNote");
         } else{
@@ -99,9 +101,15 @@ wf.notesList = (function(){
         return _overrideName || _defaultName;
     }
 
+    function _viewAllNotes(pAll){
+        _allNotes = pAll;
+        _init();
+    }    
+
     return {
         init: _init,
         addNote: _addNote,
-        overrideListName: _overrideListName
+        overrideListName: _overrideListName,
+        viewAllNotes: _viewAllNotes
     };
 })();

@@ -126,7 +126,9 @@ wf.entry = (function(){
             this.contentEditable = "true";
             this.focus();
             this.onblur = _saveEntry;
-            this.onkeyup = _keyUp;            
+            this.onkeyup = _keyUp;                       
+            this.classList.remove("mouseover"); 
+            this.classList.add("editable"); 
         }
     }
 
@@ -162,11 +164,13 @@ wf.entry = (function(){
         _currentEntry = null;
     }
 
-    function _exportNote(){
-        const cliptext = document.getElementById("entryText");
-        let vText = cliptext.innerText;
-        
-        navigator.clipboard.writeText(_prepareNewLines(vText));
+    function _exportEntry(){
+        if(_currentEntry){
+            let vFileName = _currentEntry.name + ".md";
+            const cliptext = document.getElementById("entryText");
+            let vText = cliptext.innerText;
+            _download(vFileName,_prepareNewLines(vText));            
+        }
     }
 
     function _getCurrentEntry(){        
@@ -179,6 +183,22 @@ wf.entry = (function(){
         }
     }
 
+    function _getEntryLines(){
+        const cliptext = document.getElementById("entryText");
+        const vText = cliptext.innerText;
+        
+        const vLines = vText.split("\n");
+        return vLines;
+    }
+
+    function _download(filename, text) {
+        var pom = document.createElement('a');
+        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        pom.setAttribute('download', filename);
+    
+        pom.click();
+    }
+
     return {
         loadEntry: _loadEntry,
         saveText: _saveText,
@@ -188,9 +208,11 @@ wf.entry = (function(){
         editEntry: _editEntry,
         clipboard: _clipboard,
         resetEntry: _resetEntry,
-        exportNote: _exportNote,
+        exportEntry: _exportEntry,
         getCurrentEntry: _getCurrentEntry,
         getCurrentEntryKey: _getCurrentEntryKey,
-        prepareNewLines: _prepareNewLines
+        prepareNewLines: _prepareNewLines,
+        getEntryLines: _getEntryLines,
+        download: _download
     };
 })();

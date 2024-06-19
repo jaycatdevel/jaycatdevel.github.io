@@ -26,6 +26,7 @@ wf.projectsList = (function(){
     function _drawProject(project){        
         const newDiv = document.createElement("div");
         newDiv.classList.add("project_tab");
+        newDiv.classList.add("mouseover");
         newDiv.id = _projectPrefix + project.key.toFixed(0);
         newDiv.onclick = _projectClick;
         newDiv.ondblclick = wf.project.projectEdit;

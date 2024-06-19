@@ -138,3 +138,19 @@ body {
 .detailsHide {
     display: none;
 }
+
+#projectsMenu {
+    display: inline-block;
+}
+
+#projectsList{
+    display: inline-block;
+}
+
+.mouseover{
+    cursor: default;
+}
+
+.editable{
+    cursor: text;
+}
