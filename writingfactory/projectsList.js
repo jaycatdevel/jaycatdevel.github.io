@@ -31,9 +31,21 @@ wf.projectsList = (function(){
         newDiv.onclick = _projectClick;
         newDiv.ondblclick = wf.project.projectEdit;
         let vText = project.name;
-        
+        let vWords = project.wordcount;
+        if(!vWords){
+            vWords = 0;
+        }
+        const textSpan = document.createElement("span");
+        const countSpan = document.createElement("span");
+        countSpan.id = _projectPrefix + "_wordcount_" + project.key.toFixed(0);
+        countSpan.classList.add("project_wordcount");
         const newContent = document.createTextNode(vText);
-        newDiv.appendChild(newContent);
+        const projWordCount = document.createTextNode(vWords);
+        textSpan.appendChild(newContent);
+        countSpan.appendChild(projWordCount);
+
+        newDiv.appendChild(textSpan);
+        newDiv.appendChild(countSpan);
 
         const currentDiv = document.getElementById(_listName);
         currentDiv.appendChild(newDiv);        

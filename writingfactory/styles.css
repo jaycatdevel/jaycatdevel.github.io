@@ -154,3 +154,7 @@ body {
 .editable{
     cursor: text;
 }
+
+.project_wordcount {
+    margin-left: 10px;
+}

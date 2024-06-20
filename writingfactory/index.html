@@ -22,29 +22,7 @@
         <script src = "database.js"></script>
     </head>
     <body>
-        <div class="fullContent">
-            <div id="menuBar">                                
-                
-                
-                <div class="menuItem">
-                    <button type="button" onclick="wf.entry.clipboard();">Copy text</button>
-                </div>
-                <div class="menuItem">
-                    <button type="button" onclick="wf.entry.exportEntry();">Export Entry</button>
-                </div>
-                <div class="menuItem">
-                    <button type="button" onclick="wf.project.exportProject();">Export Project</button>
-                </div>                
-                <div class="menuItem">
-                    <button type="button" onclick="wf.notes.textToProjectNotes();">Text to Project Notes</button>
-                </div>                
-                <!--<div class="menuItem">
-                    <button type="button" onclick="wf.project.projectOverview(true);">Project Overview</button>
-                </div>
-                <div class="menuItem">
-                    <button type="button" onclick="wf.project.projectOverview(false);">Writer View</button>
-                </div>-->
-            </div>
+        <div class="fullContent">            
             <div id="projectWrapper" class="wrapper">
                 <div id="projectsList"></div>
                 <div id="projectsMenu">
@@ -63,7 +41,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="contentMiddle">                        
+                    <div class="contentMiddle">         
+                        <div id="menuBar">                                
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.entry.clipboard();">Copy text</button>
+                            </div>
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.entry.exportEntry();">Export Entry</button>
+                            </div>
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.project.exportProject();">Export Project</button>
+                            </div>                
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.notes.textToProjectNotes();">Text to Project Notes</button>
+                            </div>                
+                            <!--<div class="menuItem">
+                                <button type="button" onclick="wf.project.projectOverview(true);">Project Overview</button>
+                            </div>
+                            <div class="menuItem">
+                                <button type="button" onclick="wf.project.projectOverview(false);">Writer View</button>
+                            </div>-->
+                        </div>               
                         <div class="scroller textBox" onclick="wf.entry.focusText();">
                             <div class="mainText" id="entryText" contenteditable="true"></div>
                         </div>

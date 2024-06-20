@@ -46,7 +46,8 @@ wf.entry = (function(){
             }            
             _currentEntry.text = vText;
             _currentEntry.wordcount = _wordCount();
-            await wf.entries.save(_currentEntry);
+            await wf.entries.save(_currentEntry);            
+            wf.project.wordCount();
         }
     }
 
@@ -57,6 +58,7 @@ wf.entry = (function(){
             let vEntry = _entryPrefix + "_wordcount" + _currentEntry.key.toFixed(0);            
             document.getElementById(vEntry).textContent = vLength.toFixed(0);			
         }
+        wf.project.wordCount();
         return vLength;
 	}
 	
@@ -213,6 +215,8 @@ wf.entry = (function(){
         getCurrentEntryKey: _getCurrentEntryKey,
         prepareNewLines: _prepareNewLines,
         getEntryLines: _getEntryLines,
-        download: _download
+        download: _download,
+        getWords: _getWords
+
     };
 })();

@@ -105,10 +105,15 @@ wf.entriesList = (function(){
         return _overrideName || _defaultName;
     }
 
+    function _getAllCurrentEntries(){
+        return _entriesList;
+    }
+
     return {
         init: _init,
         addEntry: _addEntry,
         selectFirstEntry: _selectFirstEntry,
-        overrideListName: _overrideListName
+        overrideListName: _overrideListName,
+        getAllCurrentEntries: _getAllCurrentEntries
     };
 })();

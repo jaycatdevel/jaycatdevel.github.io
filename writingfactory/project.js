@@ -5,6 +5,7 @@ wf.project = (function(){
 
     let _currentProject;
     let _textModified = false;
+    const _projectPrefix = "Project_";    
 
     async function _loadProject(project){        
         _currentProject = project;     
@@ -83,10 +84,29 @@ wf.project = (function(){
         }
     }
 
+    async function _wordCount(){
+        let vEntries = wf.entriesList.getAllCurrentEntries();
+        let vWordCount = 0;
+        if(vEntries && vEntries.length > 0 && _currentProject){            
+            for(let i = 0, j = vEntries.length; i <j;i++){
+                if(vEntries[i].wordcount){
+                    vWordCount += vEntries[i].wordcount;                    
+                }
+            }
+            _currentProject.wordcount = vWordCount;            
+            let vWordSpan = document.getElementById(_projectPrefix + "_wordcount_" + _currentProject.key.toFixed(0));            
+            if(vWordSpan){
+                vWordSpan.textContent = vWordCount;
+            }            
+            await wf.projects.save(_currentProject);            
+        }
+    }
+
     return {
         loadProject: _loadProject,
         projectEdit: _projectEdit,
         exportProject: _exportProject,
-        projectOverview: _projectOverview
+        projectOverview: _projectOverview,
+        wordCount: _wordCount
     }
 })();
