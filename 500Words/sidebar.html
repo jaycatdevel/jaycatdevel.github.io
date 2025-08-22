@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Modal with Sidebar</title>
+    <link rel="stylesheet" href="sidebarstyles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>To-Do List</h2>
+            <ul id="todoList">
+                <li class="card">Task 1</li>
+                <li class="card">Task 2</li>
+                <li class="card">Task 3</li>
+                <li class="card">Task 4</li>
+                <li class="card">Task 5</li>
+                <li class="card blank" id="addTodo">+ Add a new task</li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <button id="openModalBtn">Open Modal</button>
+
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeModalBtn">&times;</span>
+                    <h2>Set a Number</h2>
+                    <input type="number" id="numberInput" placeholder="Enter a number" />
+                    <button id="submitBtn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="sidebarscript.js"></script>
+</body>
+</html>
