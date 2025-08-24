@@ -28,13 +28,33 @@ function updateWordCount() {
 function downloadTextFile() {
     updateWordCount();
     const content = document.getElementById('novelContent').innerText;
-    const blob = new Blob([content], { type: 'text/plain' });
+    // Normalize double new lines to a single new line
+    const normalizedContent = content.replace(/\n{2,}/g, '\n\n');
+    const blob = new Blob([normalizedContent], { type: 'text/plain' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = vCurrentCount + "_words.txt"; // Name of the downloaded file
     link.click();
     URL.revokeObjectURL(link.href); // Clean up
 }
+
+function copyToClipboard() {
+    // Get the content of the div
+    const content = document.getElementById('novelContent').innerText;
+    // Create a temporary textarea element
+    const textarea = document.createElement('textarea');
+    textarea.value = content;
+    // Append the textarea to the document
+    document.body.appendChild(textarea);
+    // Select the text in the textarea
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); // For mobile devices
+    // Copy the text to the clipboard
+    document.execCommand('copy');
+    // Remove the textarea from the document
+    document.body.removeChild(textarea);
+}
+
 
 // Clear the text in the content-editable div
 function clearText() {
