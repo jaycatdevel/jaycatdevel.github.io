@@ -1,6 +1,6 @@
 {
     "name": "500 Words",
-    "short_name": "500Words",
+    "short_name": "500words",
     "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#f4f4f4",
