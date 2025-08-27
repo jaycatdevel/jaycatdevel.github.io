@@ -11,6 +11,7 @@ html, body {
     max-width: 700px; /* Limit the width of the main container */
     min-width: 700px; /* Limit the width of the main container */
     margin: auto; /* Center the main container */
+    padding-top: 5px;
 }
 
 .word-counter {
@@ -45,7 +46,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Ensures space is distributed */
-    height: calc(100vh - 60px); /* Adjust height to account for browser chrome and padding */
+    height: calc(100vh - 55px); /* Adjust height to account for browser chrome and padding */
     width: 100%; /* Ensure the container takes full width */
     max-width: 600px; /* Set a maximum width for the container */
     background-color: #fff;
