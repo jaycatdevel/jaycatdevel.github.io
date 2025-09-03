@@ -1,0 +1,99 @@
+<html>
+    <head>    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="./favicon.ico">
+        <title>Epicenter</title>
+        <script src="script.js"></script>    
+        <script src="words.js"></script>    
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>        
+        <div class="container">
+            <h1>&#x1F3AF;&nbsp;EPICENTER&nbsp;</h1>
+            <div class="mainBody">
+                <div class="guessGrid">
+                    <div class = "guessRow" id = "row0">
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                    </div>
+                    <div class = "guessRow" id = "row1">
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                    </div>
+                    <div class = "guessRow" id = "row2">
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                    </div>
+                    <div class = "guessRow" id = "row3">
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                    </div>
+                    <div class = "guessRow" id = "row4">
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                    </div>
+                    <div class = "guessRow" id = "row5">
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                        <div class = "cell"><div class = "cell-inner"></div></div>
+                    </div>
+                </div>
+                <div id="letterRange" class="letterContainer"></div>
+            </div>
+            <div class="keyboard">
+                <div class="keyRow">
+                    <div class = "key" onclick="keyTap('Q')" id="key_Q">Q</div>
+                    <div class = "key" onclick="keyTap('W')" id="key_W">W</div>
+                    <div class = "key" onclick="keyTap('E')" id="key_E">E</div>
+                    <div class = "key" onclick="keyTap('R')" id="key_R">R</div>
+                    <div class = "key" onclick="keyTap('T')" id="key_T">T</div>
+                    <div class = "key" onclick="keyTap('Y')" id="key_Y">Y</div>
+                    <div class = "key" onclick="keyTap('U')" id="key_U">U</div>
+                    <div class = "key" onclick="keyTap('I')" id="key_I">I</div>
+                    <div class = "key" onclick="keyTap('O')" id="key_O">O</div>
+                    <div class = "key" onclick="keyTap('P')" id="key_P">P</div>                
+                </div>
+                <div class="keyRow">
+                    <div class = "key" onclick="keyTap('A')" id="key_A">A</div>
+                    <div class = "key" onclick="keyTap('S')" id="key_S">S</div>
+                    <div class = "key" onclick="keyTap('D')" id="key_D">D</div>
+                    <div class = "key" onclick="keyTap('F')" id="key_F">F</div>
+                    <div class = "key" onclick="keyTap('G')" id="key_G">G</div>
+                    <div class = "key" onclick="keyTap('H')" id="key_H">H</div>
+                    <div class = "key" onclick="keyTap('J')" id="key_J">J</div>
+                    <div class = "key" onclick="keyTap('K')" id="key_K">K</div>
+                    <div class = "key" onclick="keyTap('L')" id="key_L">L</div>                
+                </div>
+                <div class="keyRow">
+                    <div class = "key" onclick="keyTap('ENTER')" id="key_ENTER">ENTER</div>
+                    <div class = "key" onclick="keyTap('Z')" id="key_Z">Z</div>
+                    <div class = "key" onclick="keyTap('X')" id="key_X">X</div>
+                    <div class = "key" onclick="keyTap('C')" id="key_C">C</div>
+                    <div class = "key" onclick="keyTap('V')" id="key_V">V</div>
+                    <div class = "key" onclick="keyTap('B')" id="key_B">B</div>
+                    <div class = "key" onclick="keyTap('N')" id="key_N">N</div>
+                    <div class = "key" onclick="keyTap('M')" id="key_M">M</div>
+                    <div class = "key" onclick="keyTap('DELETE')" id="key_del">DEL</div>                
+                </div>            
+            </div>        
+        </div>
+    </body>
+</html>
