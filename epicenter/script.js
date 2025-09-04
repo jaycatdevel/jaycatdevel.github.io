@@ -1,4 +1,4 @@
-window.onload = init;
+/*window.onload = init;*/
 
 let _guessIndex = 0;
 let _charIndex = 0;
@@ -84,8 +84,10 @@ function _loadWord(){
 }
 
 function makeGuess(){
-    // Append the new div to the parent div
-    //document.getElementById("answer").appendChild(insertedDiv);
+    if(WordList.indexOf(_guess.toLowerCase()) < 0){
+        alert("You did not enter a valid word");
+        return;
+    }    
     let vCorrect = _checkGuess(_guess.toUpperCase());        
     if(!vCorrect){
         _guessIndex++;
@@ -181,7 +183,57 @@ function _showLetters(){
     }
 }
 
-function createAlphabetDivs(centerLetter, distance) {    
+function createAlphabetDivs(centerLetter, distance) {  
+    const letterIndex = alphabet.indexOf(centerLetter.toUpperCase());
+    let letters = [];
+    if(centerLetter && distance !== undefined){
+        letters = getWrappedLetterIndexes(centerLetter, distance);
+    }
+
+    if (letterIndex === -1) {
+        console.error('Invalid letter provided. Please provide a single letter from A to Z.');
+        return;
+    }
+
+    const totalLetters = alphabet.length;
+    // Calculate the start index to center the letter
+    const startIndex = (letterIndex - Math.floor(totalLetters / 2) + totalLetters) % totalLetters;    
+    
+    for (let i = 0; i < totalLetters; i++) {
+        const currentIndex = (startIndex + i) % totalLetters;        
+        const letterDiv = document.getElementById("lb" +alphabet[currentIndex]);
+        letterDiv.classList.remove("exact");
+        letterDiv.classList.remove("close");            
+        letterDiv.classList.remove("reasonable");            
+        letterDiv.classList.remove("far");            
+        letterDiv.classList.remove("out-of-bounds");  
+        letterDiv.classList.remove("highlighted");             
+        if(letters.indexOf(alphabet[currentIndex]) <0){
+            letterDiv.classList.add("hidden");                        
+        } else{
+            letterDiv.classList.add("highlighted");            
+            letterDiv.classList.remove("hidden");         
+            if(alphabet[currentIndex] === centerLetter){
+                if(distance === 0){
+                    letterDiv.classList.add("exact");                    
+                }
+                else if(distance < 3){
+                    letterDiv.classList.add("close");                    
+                } else if (distance < 6){
+                    letterDiv.classList.add("reasonable");                    
+                } else if (distance < 10){
+                    letterDiv.classList.add("far");                    
+                } else{
+                    letterDiv.classList.add("out-of-bounds");                    
+                }
+            }   
+        }
+        letterDiv.textContent = alphabet[currentIndex];        
+    }
+    
+}
+
+function createAlphabetDivs_old(centerLetter, distance) {  
     const letterIndex = alphabet.indexOf(centerLetter.toUpperCase());
     let letters = [];
     if(centerLetter && distance !== undefined){
@@ -242,5 +294,24 @@ function getWrappedLetterIndexes(centerLetter, offset) {
     return result;
 }
 
+function _hideAllPages(){
+    const pages = document.getElementsByClassName("page");
+    for(let i = 0, j = pages.length; i<j;i++){
+        pages[i].classList.add("hiddenPage");
+        pages[i].classList.remove("shownPage");
+    }
+}
+function play(){
+    _hideAllPages();
+    document.getElementById("gamePage").classList.remove("hiddenPage");
+    document.getElementById("gamePage").classList.add("shownPage");
+    init();
+}
 
+function howto(){
+    _hideAllPages();
+    document.getElementById("howToPage").classList.remove("hiddenPage");
+    document.getElementById("howToPage").classList.add("shownPage");
+    init();
+}
 
