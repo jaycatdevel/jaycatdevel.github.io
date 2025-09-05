@@ -279,7 +279,7 @@ h1 {
 @media (max-width: 600px) {
     .key{
         border-radius: 6px;
-        padding: 4px 3.4vw;
+        padding: 9px 3.4vw;
         font-size: 10px;
     }
 
