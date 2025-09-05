@@ -11,19 +11,19 @@
     <body>        
         <div class="container">
             <div class="page shownPage" id ="homePage">
-                <header>
-                    <h1>&#x1F3AF;&nbsp;EPICENTER&nbsp;</h1>
-                </header>
                 <div class="mainBody">
-                    <button type="button" class="primary-button" onclick="play()">Play</button>                    
-                    <button type="button" class="info-button" onclick="howto()">How to Play</button>
+                    <h1>&#x1F3AF;&nbsp;EPICENTER&nbsp;</h1>                
+                    <div>
+                        <button type="button" class="primary-button" onclick="play()">Play</button>                    
+                        <button type="button" class="info-button" onclick="howto()">How to Play</button>
+                    </div>
+                    <div class="footer">
+                        <button type="button" class="secondary-button">Play Archive</button>
+                    </div>
+                    <div class="footer">
+                        <span class="small">Made by Jaycat</span>&#128008;&#8205;&#11035;
+                    </div>
                 </div>
-                <div>                    
-                    <button type="button" class="secondary-button">Play Archive</button>
-                </div>
-                <footer class="footer">
-                    <span class="small">Made by Jaycat</span>&#128008;&#8205;&#11035;
-                </footer>
             </div>
             <div class="page hiddenPage" id ="howToPage">
                 <h1>&#10067;&nbsp;HOW TO PLAY&nbsp;</h1>
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div class="column-text">
                             &nbsp;Green means you have the correct letter
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div class="column-text">
                             &nbsp;Blue means you are within two letters
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div class="column-text">
                             &nbsp;Yellow means you are within five letters
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div class="column-text">
                             &nbsp;Red means you are within ten letters
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div class="column-text">
                             &nbsp;Grey means you are not close to the correct letter at all
                         </div>
                     </div>                                                            
@@ -111,45 +111,48 @@
                     <div class="text">The letter board will show you which letters are possible for this position</div>
                     <div class="letterContainer">
                         <div class="keyRow">
-                            <div class="letterBox">A</div>
-                            <div class="letterBox">B</div>
-                            <div class="letterBox">C</div>
-                            <div class="letterBox">D</div>
-                            <div class="letterBox">E</div>
-                            <div class="letterBox">F</div>
-                            <div class="letterBox">G</div>
-                            <div class="letterBox">H</div>
-                            <div class="letterBox">I</div>
-                            <div class="letterBox">J</div>
-                            <div class="letterBox">K</div>
-                            <div class="letterBox">L</div>
-                            <div class="letterBox">M</div>
+                            <div class="letterBox hidden">A</div>
+                            <div class="letterBox hidden">B</div>
+                            <div class="letterBox highlighted">C</div>
+                            <div class="letterBox highlighted">D</div>
+                            <div class="letterBox highlighted close">E</div>
+                            <div class="letterBox highlighted">F</div>
+                            <div class="letterBox highlighted">G</div>
+                            <div class="letterBox hidden">H</div>
+                            <div class="letterBox hidden">I</div>
+                            <div class="letterBox hidden">J</div>
+                            <div class="letterBox hidden">K</div>
+                            <div class="letterBox hidden">L</div>
+                            <div class="letterBox hidden">M</div>
                         </div>
                         <div class="keyRow">                            
-                            <div class="letterBox">N</div>
-                            <div class="letterBox">O</div>
-                            <div class="letterBox">P</div>
-                            <div class="letterBox">Q</div>
-                            <div class="letterBox">R</div>
-                            <div class="letterBox">S</div>
-                            <div class="letterBox">T</div>
-                            <div class="letterBox">U</div>
-                            <div class="letterBox">V</div>
-                            <div class="letterBox">W</div>
-                            <div class="letterBox">X</div>
-                            <div class="letterBox">Y</div>
-                            <div class="letterBox">Z</div>
+                            <div class="letterBox hidden">N</div>
+                            <div class="letterBox hidden">O</div>
+                            <div class="letterBox hidden">P</div>
+                            <div class="letterBox hidden">Q</div>
+                            <div class="letterBox hidden">R</div>
+                            <div class="letterBox hidden">S</div>
+                            <div class="letterBox hidden">T</div>
+                            <div class="letterBox hidden">U</div>
+                            <div class="letterBox hidden">V</div>
+                            <div class="letterBox hidden">W</div>
+                            <div class="letterBox hidden">X</div>
+                            <div class="letterBox hidden">Y</div>
+                            <div class="letterBox hidden">Z</div>
                         </div>
                     </div>
                     <div class="text">&nbsp;</div>
                     <div class="text">There is a new word every day (or play the archive for past words).</div>                                        
                 </div>
-                <footer class="footer">
+                <div class="footer">
                     <button type="button" class="primary-button" onclick="play()">Play</button>
-                </footer>
+                </div>
             </div>
             <div class="page hiddenPage" id ="archivePage"></div>
             <div class="page hiddenPage" id ="gamePage">                
+                <div class="headerBar">
+                    <div class = "key" onclick="goHome()">&#11013;</div>                                        
+                </div>
                 <div class="mainBody">
                     <div class="guessGrid">
                         <div class = "guessRow" id = "row0">

@@ -52,6 +52,7 @@ function _processLetter(vChar){
         return;
     }
     if(_charIndex > 4 && !vDelete){
+        _angryShake(4);
         return;
     }
     _guess += vChar;
@@ -66,6 +67,7 @@ function _processLetter(vChar){
         } else{
             vCells[_charIndex].children[0].appendChild(letterDiv);
         }        
+        _happyDance(_charIndex,true);
     }
 
     if(!vDelete){
@@ -80,12 +82,13 @@ function _processLetter(vChar){
 function _loadWord(){
     let vIndex = Math.floor(Math.random() * WordList.length);    
     _word = WordList[vIndex].toUpperCase();
-    //_word = "AAAAA";
+    _word = "ALPHA";
 }
 
 function makeGuess(){
     if(WordList.indexOf(_guess.toLowerCase()) < 0){
         alert("You did not enter a valid word");
+        _angryShake();
         return;
     }    
     let vCorrect = _checkGuess(_guess.toUpperCase());        
@@ -95,7 +98,13 @@ function makeGuess(){
         _guess = "";
         _showLetters();
         if(_guessIndex > MAXGUESSES){
-            alert("You did not guess the word");
+            setTimeout(() => {
+            alert("You did not guess the word: " + _word);    
+            }, (2300));
+            
+            setTimeout(() => {
+                _angryShake();
+            }, 1800);            
         }
     }
 }
@@ -109,29 +118,32 @@ function _checkGuess(vGuess){
     _previousGuess = [];
     for(let i =0; i < CHARCOUNT; i++){	
         let vDist = closestLetterDistance(_word[i],vGuess[i]);        
-	if(vCells && vCells.length === 5){
-        const letterDiv = document.createElement('div');
-        letterDiv.classList.add("cell-back");                    
-        letterDiv.textContent = vGuess[i];       
-        if(vDist === 0){
-            letterDiv.classList.add("exact");                    
+        if(vCells && vCells.length === 5){
+            const letterDiv = document.createElement('div');
+            letterDiv.classList.add("cell-back");                    
+            letterDiv.textContent = vGuess[i];       
+            if(vDist === 0){
+                letterDiv.classList.add("exact");                    
+            }
+            else if(vDist < 3){
+                letterDiv.classList.add("close");                    
+            } else if (vDist < 6){
+                letterDiv.classList.add("reasonable");                    
+            } else if (vDist < 10){
+                letterDiv.classList.add("far");                    
+            } else{
+                letterDiv.classList.add("out-of-bounds");                    
+            }
+            vCells[i].children[0].appendChild(letterDiv);
+            setTimeout(() => {
+                vCells[i].classList.toggle("cell-flip"); // Toggle the flip effect    
+            }, (300 * (i)));
+            
+            _previousGuess[i] = {
+                letter: vGuess[i],
+                distance: vDist
+                };
         }
-        else if(vDist < 3){
-            letterDiv.classList.add("close");                    
-        } else if (vDist < 6){
-            letterDiv.classList.add("reasonable");                    
-        } else if (vDist < 10){
-            letterDiv.classList.add("far");                    
-        } else{
-            letterDiv.classList.add("out-of-bounds");                    
-        }
-        vCells[i].children[0].appendChild(letterDiv);
-        vCells[i].classList.toggle("cell-flip"); // Toggle the flip effect
-        _previousGuess[i] = {
-            letter: vGuess[i],
-            distance: vDist
-            };
-	}
         vCalcResult += vDist;
         vResult += vDist.toFixed() + " ";
     }
@@ -143,6 +155,7 @@ function _checkGuess(vGuess){
     //document.getElementById("answer").appendChild(insertedDiv);
     if(vCalcResult === 0){
         alert("You guessed the word");
+        _happyDance();
         return true;
     }
     return false;
@@ -312,6 +325,66 @@ function howto(){
     _hideAllPages();
     document.getElementById("howToPage").classList.remove("hiddenPage");
     document.getElementById("howToPage").classList.add("shownPage");
-    init();
 }
 
+function goHome(){
+    _hideAllPages();
+    document.getElementById("homePage").classList.remove("hiddenPage");
+    document.getElementById("homePage").classList.add("shownPage");    
+}
+
+function _angryShake(pIndex){
+    let vGuess = _guessIndex;
+    if(vGuess > 5){
+        vGuess = 5;
+    }
+    const vRow = document.getElementById("row" + vGuess.toFixed(0));
+    const vCells = vRow.children;    
+
+    function _shakeCell(_index){
+        if(_index !== undefined){
+            const box = vCells[_index];        
+            box.classList.add('angry-shake');
+            // Remove the class after animation ends to allow re-triggering
+            box.addEventListener('animationend', 
+                () => {
+                        box.classList.remove('angry-shake');
+                    }, { once: true });                
+        }    
+    }
+    if(pIndex){
+        _shakeCell(pIndex);        
+    } else{
+        for(let i = 0, j = vCells.length;i<j;i++){
+        _shakeCell(i);        
+        }
+    }
+}
+
+function _happyDance(pIndex,pFast) {
+    const vRow = document.getElementById("row" + _guessIndex.toFixed(0));
+    const vCells = vRow.children;    
+
+    function _danceCell(_index){
+        if(_index !== undefined){
+            const box = vCells[_index];        
+            let vDance = 'happy-dance';
+            if(pFast){
+                vDance = 'happy-dance-fast';
+            }
+            box.classList.add(vDance);
+            // Remove the class after animation ends to allow re-triggering
+            box.addEventListener('animationend', 
+                () => {
+                        box.classList.remove(vDance);
+                    }, { once: true });                
+        }    
+    }
+    if(pIndex !== undefined){
+        _danceCell(pIndex);
+    } else{
+        for(let i = 0, j = vCells.length;i<j;i++){
+            _danceCell(i);        
+        }    
+    }
+}

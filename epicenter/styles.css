@@ -78,9 +78,8 @@ h1 {
     flex-direction: column;
 }
 
-.keyboard {	
-    /*display: flex;*/
-    margin-bottom: 10px; 
+.keyboard {	    
+    margin-bottom: 65px; 
 }
 
 .keyRow {
@@ -96,7 +95,7 @@ h1 {
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 3px 12px;
+    padding: 6px 12px;
 	margin: 1px;
     font-size: 14px;
     cursor: pointer;
@@ -126,6 +125,7 @@ h1 {
     position: relative;
     perspective: 1000px; /* Enable 3D perspective */    
 	margin: 5px 2px 2px;	
+    font-weight: bolder;
 }
 
 .cell-inner {
@@ -133,7 +133,7 @@ h1 {
     width: 100%;
     height: 100%;
     transition: transform 0.6s;
-    transform-style: preserve-3d;
+    transform-style: preserve-3d;    
 }
 
 .guessRow {
@@ -141,6 +141,13 @@ h1 {
 	display: flex;
     justify-content: center;
     align-items: center;		
+}
+
+.helpRow {
+	text-align: left;
+	display: flex;
+    justify-content: left;
+    align-items: left;		
 }
 
 .cell-front, .cell-back {
@@ -246,7 +253,7 @@ h1 {
 }
 
 .footer{
-    padding-bottom: 20px;
+    padding-top: 50px;
 }
 
 .text {
@@ -257,19 +264,53 @@ h1 {
     display: inline;
 }
 
+.column-text {
+    display: inline;
+    width: 200px;
+}
+
+.headerBar {
+    display: flex;
+    justify-content: left;
+    align-items: left;   
+    padding: 10px;
+}
+
 @media (max-width: 600px) {
     .key{
         border-radius: 6px;
-        padding: 3px 3.4vw;
+        padding: 4px 3.4vw;
         font-size: 10px;
     }
 
     .cell {
-        width: 16.6vw;
-        height: 16.6vw;        
+        width: 14vw;
+        height: 14vw;        
     }
     .small {
         font-size: 6pt;
         line-height: 10pt;
     }    
+}
+
+.happy-dance-fast {
+    animation: happyDance 0.25s forwards;
+}
+.happy-dance {
+    animation: happyDance 0.5s forwards;
+}
+.angry-shake {
+    animation: angryShake 0.5s forwards;
+}
+@keyframes happyDance {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+@keyframes angryShake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
 }
