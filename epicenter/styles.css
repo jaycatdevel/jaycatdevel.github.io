@@ -254,6 +254,7 @@ h1 {
 
 .footer{
     padding-top: 50px;
+    margin-bottom: 50px;
 }
 
 .text {
@@ -279,7 +280,7 @@ h1 {
 @media (max-width: 600px) {
     .key{
         border-radius: 6px;
-        padding: 9px 3.4vw;
+        padding: 8px 3.4vw;
         font-size: 10px;
     }
 
@@ -313,4 +314,37 @@ h1 {
     50% { transform: translateX(5px); }
     75% { transform: translateX(-5px); }
     100% { transform: translateX(0); }
+}
+
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 17px;
+    transition: visibility 0s linear 3s, opacity 0.5s linear;
+}
+
+.toast.invisible {
+   opacity: 0;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s linear;
+}
+
+.toast.fade-out {
+	visibility: visible;
+    opacity: 0;
+    transition: opacity 0.5s linear;
 }

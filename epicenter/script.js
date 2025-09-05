@@ -87,7 +87,7 @@ function _loadWord(){
 
 function makeGuess(){
     if(WordList.indexOf(_guess.toLowerCase()) < 0){
-        alert("You did not enter a valid word");
+        _showToast("You did not enter a valid word");
         _angryShake();
         return;
     }    
@@ -98,8 +98,9 @@ function makeGuess(){
         _guess = "";
         _showLetters();
         if(_guessIndex > MAXGUESSES){
+            document.removeEventListener('keydown', _keyPress);
             setTimeout(() => {
-            alert("You did not guess the word: " + _word);    
+            alert("You did not guess the word: " + _word);                
             }, (2300));
             
             setTimeout(() => {
@@ -155,6 +156,7 @@ function _checkGuess(vGuess){
     //document.getElementById("answer").appendChild(insertedDiv);
     if(vCalcResult === 0){
         alert("You guessed the word");
+        document.removeEventListener('keydown', _keyPress);
         _happyDance();
         return true;
     }
@@ -387,4 +389,21 @@ function _happyDance(pIndex,pFast) {
             _danceCell(i);        
         }    
     }
+}
+
+function _showToast(sMessage){
+    const toast = document.getElementById('toast');
+    toast.textContent = sMessage;
+    toast.classList.add('show');
+
+    setTimeout(() => {
+        toast.classList.remove('invisible');
+        toast.classList.remove('show');
+            toast.classList.add('fade-out');
+        }, 3000); // Start fading out after 3 seconds
+
+    setTimeout(() => {
+        toast.classList.add('invisible');
+            toast.classList.remove('fade-out');
+        }, 3500); // reset after 3.5 seconds    
 }
