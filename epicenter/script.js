@@ -82,7 +82,7 @@ function _processLetter(vChar){
 function _loadWord(){
     let vIndex = Math.floor(Math.random() * WordList.length);    
     _word = WordList[vIndex].toUpperCase();
-    _word = "ALPHA";
+    //_word = "ALPHA";
 }
 
 function makeGuess(){
