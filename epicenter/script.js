@@ -1,4 +1,3 @@
-/*window.onload = init;*/
 
 let _guessIndex = 0;
 let _charIndex = 0;
@@ -8,10 +7,16 @@ let _previousGuess = [];
 const CHARCOUNT = 5;
 const MAXGUESSES = 5;
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const startDate = new Date(2025, 5, 1); // Month is 0-indexed, so June is 5
 
-function init(){    
+function init(pID){    
     _guessIndex = 0;
-    _loadWord();
+    _charIndex = 0;
+    _word = "";
+    _guess = "";
+    _previousGuess = [];
+    _resetGrid();
+    _loadWord(pID);
     _showLetters();
     document.addEventListener('keydown', _keyPress);
     createAlphabetDivs('A'); // This will center the letter 'M'
@@ -79,10 +84,25 @@ function _processLetter(vChar){
     _showLetters();
 }
 
-function _loadWord(){
-    let vIndex = Math.floor(Math.random() * WordList.length);    
-    _word = WordList[vIndex].toUpperCase();
-    //_word = "ALPHA";
+function _loadWord(pID){
+    let vIndex = "";
+    if(pID){
+        vIndex = pID;
+    } else{
+        const today = new Date(); // Get today's date
+        
+        // Calculate the difference in milliseconds
+        const differenceInTime = today.getTime() - startDate.getTime();
+
+        // Convert milliseconds to days
+        let differenceInDays = parseInt(differenceInTime / (1000 * 3600 * 24));
+
+        if(differenceInDays >= (WordList.length - 1)){
+            differenceInDays = (WordList.length - 1);
+        }    
+        vIndex = differenceInDays;
+    }
+    _word = WordList[vIndex].toUpperCase();        
 }
 
 function makeGuess(){
@@ -316,11 +336,11 @@ function _hideAllPages(){
         pages[i].classList.remove("shownPage");
     }
 }
-function play(){
+function play(pID){
     _hideAllPages();
     document.getElementById("gamePage").classList.remove("hiddenPage");
     document.getElementById("gamePage").classList.add("shownPage");
-    init();
+    init(pID);
 }
 
 function howto(){
@@ -333,6 +353,13 @@ function goHome(){
     _hideAllPages();
     document.getElementById("homePage").classList.remove("hiddenPage");
     document.getElementById("homePage").classList.add("shownPage");    
+}
+
+function archive(){
+    _hideAllPages();
+    document.getElementById("archivePage").classList.remove("hiddenPage");
+    document.getElementById("archivePage").classList.add("shownPage");    
+    loadArchive();
 }
 
 function _angryShake(pIndex){
@@ -407,3 +434,61 @@ function _showToast(sMessage){
             toast.classList.remove('fade-out');
         }, 3500); // reset after 3.5 seconds    
 }
+
+function loadArchive(){
+    const today = new Date(); // Get today's date
+    const yesterday = new Date(today); // Create a new date object for yesterday
+    yesterday.setDate(today.getDate() - 1); // Subtract one day
+    
+    // Calculate the difference in milliseconds
+    const differenceInTime = yesterday.getTime() - startDate.getTime();
+
+    // Convert milliseconds to days
+    let differenceInDays = parseInt(differenceInTime / (1000 * 3600 * 24));
+
+    if(differenceInDays >= (WordList.length - 1)){
+        differenceInDays = (WordList.length - 1);
+    }    
+    const vRow = document.getElementById("archiveGrid");
+    for(let i = 0; i <= differenceInDays; i++){
+        const pastDate = new Date(startDate);
+        pastDate.setDate(startDate.getDate() + i);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = pastDate.toLocaleDateString('en-US', options);
+        const archiveDiv = document.createElement('div');
+        archiveDiv.classList.add("guessRow");
+        const textDiv = document.createElement('div');
+        textDiv.textContent = formattedDate;
+        textDiv.classList.add("archiveText");
+        const buttonDiv = document.createElement('button');
+        buttonDiv.innerHTML = "&#9654;";        
+        buttonDiv.classList.add("key");
+        buttonDiv.setAttribute('data-id', i.toFixed());
+        buttonDiv.onclick = _selectWord;
+        archiveDiv.appendChild(textDiv);                        
+        archiveDiv.appendChild(buttonDiv);                        
+        vRow.prepend(archiveDiv);                        
+    }
+}
+
+function _selectWord(){
+    if(this){
+        const data = this.dataset;
+        if(data && data.id){            
+            play(data.id);
+        }        
+    }
+}
+
+function _resetGrid(){
+    const theGrid = document.getElementById("guessGrid");
+    const theCellsInner = theGrid.getElementsByClassName("cell-inner");
+    for(let i = 0, j = theCellsInner.length;i < j; i++){
+        theCellsInner[i].innerHTML = "";
+    }    
+    const theCells = theGrid.getElementsByClassName("cell");
+    for(let i = 0, j = theCells.length;i < j; i++){
+        theCells[i].classList.remove("cell-flip");
+    }    
+}
+    

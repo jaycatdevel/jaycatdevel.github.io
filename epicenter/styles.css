@@ -254,7 +254,7 @@ h1 {
 
 .footer{
     padding-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
 }
 
 .text {
@@ -273,20 +273,37 @@ h1 {
 .headerBar {
     display: flex;
     justify-content: left;
-    align-items: left;   
+    align-items: center;   
     padding: 10px;
 }
 
 @media (max-width: 600px) {
     .key{
         border-radius: 6px;
-        padding: 8px 3.4vw;
+        padding: 12px 3.4vw;
         font-size: 10px;
     }
 
     .cell {
         width: 14vw;
         height: 14vw;        
+    }
+    .small {
+        font-size: 6pt;
+        line-height: 10pt;
+    }    
+}
+
+@media (max-height: 650px) {
+    .key{
+        border-radius: 6px;
+        padding: 02px 3.4vw;
+        font-size: 10px;
+    }
+
+    .cell {
+        width: 10vw;
+        height: 10vw;        
     }
     .small {
         font-size: 6pt;
@@ -347,4 +364,18 @@ h1 {
 	visibility: visible;
     opacity: 0;
     transition: opacity 0.5s linear;
+}
+
+.archiveGrid {
+    height: 70vh;
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+
+.archiveText{
+    margin: 5px;	
+    font-weight: bold;
+    align-items: left;
+    text-align: left;
+    width: 60vw;
 }
