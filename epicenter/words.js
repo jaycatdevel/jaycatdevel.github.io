@@ -1,3 +1,5 @@
+// Source: https://github.com/darkermango/5-Letter-words/tree/main
+
 const WordList = [  
     "which",
     "there",

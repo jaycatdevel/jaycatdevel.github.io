@@ -3,7 +3,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/x-icon" href="./favicon.ico">
-        <title>Epicenter</title>
+        <title>Epicentre</title>
         <script src="script.js"></script>    
         <script src="words.js"></script>    
         <link rel="stylesheet" href="styles.css">
@@ -12,12 +12,12 @@
         <div class="container">
             <div class="page shownPage" id ="homePage">
                 <div class="mainBody">
-                    <h1>&#x1F3AF;&nbsp;EPICENTER&nbsp;</h1>                
+                    <h1>&#x1F3AF;&nbsp;EPICENTRE&nbsp;</h1>                
                     <div>
                         <button type="button" class="primary-button" onclick="play()">Play</button>                    
-                        <button type="button" class="info-button" onclick="howto()">How to Play</button>
                     </div>
                     <div class="footer">
+                        <button type="button" class="info-button" onclick="howto()">How to Play</button>
                         <button type="button" class="secondary-button" onclick="archive()">Play Archive</button>
                     </div>
                     <div>
@@ -162,8 +162,9 @@
                 </div>
             </div>
             <div class="page hiddenPage" id ="gamePage">                
-                <div class="headerBar">
+                <div class="headerBar"">
                     <div class = "key" onclick="goHome()">&#11013;</div>                                        
+                    <div class = "close key" onclick="_showModal('STATS','')">&#127942;</div>                                        
                 </div>
                 <div class="mainBody">
                     <div class="guessGrid" id="guessGrid">
@@ -282,5 +283,45 @@
             </div>   
         </div>
         <div id="toast" class="toast invisible"></div>
+        <div id="modal" class="modal invisible">
+            <div class="modal-content">
+                <span class="close key" id="closeModal" onclick="closeModal()">&times;</span>
+                <h3 id="modalTitle">This is a simple modal dialog.</h3>
+                <h2 id="modalHeader">Modal Title</h2>                
+                <div class="statsText">
+                    <div class="statsTextBox">
+                        <div>&nbsp;</div>
+                        <div>Played</div>                        
+                        <div class="statsTextBox" id="statsPlayed">0</div>
+                    </div>
+                    <div class="statsTextBox">
+                        <div>&nbsp;</div>
+                        <div>Won</div>
+                        <div class="statsTextBox" id="statsWon">0</div>
+                    </div>
+                    <div class="statsTextBox">
+                        <div>&nbsp;</div>
+                        <div>%</div>
+                        <div class="statsTextBox" id="statsPercent">0</div>
+                    </div>
+                    <div class="statsTextBox">
+                        <div>&nbsp;</div>
+                        <div>Streak</div>
+                        <div class="statsTextBox" id="statsStreak">0</div>
+                    </div>
+                    <div class="statsTextBox">
+                        <div>
+                            <div>Best</div>
+                            <div>Streak</div>
+                        </div>
+                        <div class="statsTextBox" id="statsBestStreak">0</div>
+                    </div>
+                </div>
+                <div id="chart"></div>
+                <div>
+                    <button type="button" class="primary-button" onclick="share()">Share</button>                    
+                </div>
+            </div>
+        </div>
     </body>
 </html>
