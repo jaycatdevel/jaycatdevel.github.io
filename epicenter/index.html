@@ -150,8 +150,8 @@
             </div>
             <div class="page hiddenPage" id ="archivePage">
                 <div class="headerBar">
-                    <div class = "key" onclick="goHome()">&#11013;</div>                                        
-                    <h1>&#128220;&nbsp;Archive&nbsp;</h1>
+                    <div class = "key raiseButton" onclick="goHome()">&#11013;</div>                                        
+                    <h1>&nbsp;&#128220;&nbsp;Archive&nbsp;</h1>
                 </div>                
                 <div class="mainBody">
                     <div class="archiveGrid" id="archiveGrid">
@@ -164,7 +164,7 @@
             <div class="page hiddenPage" id ="gamePage">                
                 <div class="headerBar"">
                     <div class = "key" onclick="goHome()">&#11013;</div>                                        
-                    <div class = "close key" onclick="_showModal('STATS','')">&#127942;</div>                                        
+                    <div class = "close rightButton key" onclick="_showModal('STATS','')">&#127942;</div>                                        
                 </div>
                 <div class="mainBody">
                     <div class="guessGrid" id="guessGrid">
@@ -285,9 +285,13 @@
         <div id="toast" class="toast invisible"></div>
         <div id="modal" class="modal invisible">
             <div class="modal-content">
-                <span class="close key" id="closeModal" onclick="closeModal()">&times;</span>
-                <h3 id="modalTitle">This is a simple modal dialog.</h3>
-                <h2 id="modalHeader">Modal Title</h2>                
+                <div>
+                    <span class="close closeModal key" id="closeModal" onclick="closeModal()">&times;</span>
+                </div>
+                <div>
+                    <h3 id="modalTitle">This is a simple modal dialog.</h3>
+                    <h2 id="modalHeader">Modal Title</h2>                
+                </div>
                 <div class="statsText">
                     <div class="statsTextBox">
                         <div>&nbsp;</div>

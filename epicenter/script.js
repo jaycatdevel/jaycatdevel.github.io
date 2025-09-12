@@ -23,6 +23,7 @@ function init(pID){
     _loadGuessHistory();
     _loadStats();
     _resetGrid();
+    _clearLetters();
     _loadWord(pID);    
     document.addEventListener('keydown', _keyPress);
 }
@@ -107,6 +108,10 @@ function _updateStats(bWin){
         _saveStats();
     }
     let vPercent = (stats.won / stats.played) * 100;
+    
+    if(vPercent === undefined || isNaN(vPercent) || !isFinite(vPercent)){
+        vPercent = 0;
+    }
 
     document.getElementById("statsPlayed").textContent = stats.played;
     document.getElementById("statsWon").textContent = stats.won;
@@ -353,6 +358,19 @@ function _showLetters(){
     }
 }
 
+function _clearLetters(){
+    const letters = document.getElementsByClassName("letterBox");        
+    for(let i = 0, j = letters.length;i<j;i++){
+        letters[i].classList.remove("exact");
+        letters[i].classList.remove("close");            
+        letters[i].classList.remove("reasonable");            
+        letters[i].classList.remove("far");            
+        letters[i].classList.remove("out-of-bounds");  
+        letters[i].classList.remove("highlighted");    
+        letters[i].classList.remove("hidden");    
+    }
+
+}
 function createAlphabetDivs(centerLetter, distance) {  
     const letterIndex = alphabet.indexOf(centerLetter.toUpperCase());
     let letters = [];
@@ -500,7 +518,7 @@ function howto(){
     document.getElementById("howToPage").classList.add("shownPage");
 }
 
-function goHome(){
+function goHome(){    
     _hideAllPages();
     document.getElementById("homePage").classList.remove("hiddenPage");
     document.getElementById("homePage").classList.add("shownPage");    
@@ -624,6 +642,7 @@ function loadArchive(){
         differenceInDays = (WordList.length - 1);
     }    
     const vRow = document.getElementById("archiveGrid");
+    vRow.innerHTML = "";
     for(let i = 0; i <= differenceInDays; i++){
         const pastDate = new Date(startDate);
         pastDate.setDate(startDate.getDate() + i);
@@ -679,7 +698,6 @@ function _showModal(sHeader, sTitle){
     const title = document.getElementById('modalTitle');
     header.textContent = sHeader;
     title.textContent = sTitle;
-    //toast.textContent = sMessage;
     modal.classList.add('show');
     setTimeout(() => {
         modal.classList.remove('invisible');        
@@ -696,7 +714,7 @@ function closeModal(){
 
     setTimeout(() => {
         modal.classList.add('invisible');
-        modal.classList.remove('fade-out');
+        modal.classList.remove('fade-out');        
     }, 500); // 
 }
 
@@ -721,7 +739,7 @@ function _loadBarChart(){
         const chartDiv = document.getElementById('chart');
         chartDiv.innerHTML = "";
         labels.forEach((label, index) => {
-            const value = values[index];
+            const value = values[index];            
             const percentage = (value / maxValue) * 100; // Calculate percentage for width
 
             const row = document.createElement('div');
@@ -733,8 +751,13 @@ function _loadBarChart(){
             valueDiv.textContent = `${value}`;
             valueDiv.className = "barText";
             const bar = document.createElement('div');            
-            bar.className = 'bar';
+            bar.classList.add("bar");                
             bar.style.width = percentage + '%';            
+            if(index === _guessIndex){
+                bar.classList.add("exact");                
+            } else{
+                bar.classList.add("barBlack");                
+            }
             row.appendChild(labelDiv);
             row.appendChild(bar);
             row.appendChild(valueDiv);
