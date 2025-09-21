@@ -733,7 +733,6 @@ function closeModal(){
         modal.classList.remove('invisible');
         modal.classList.remove('show');
         modal.classList.add('fade-out');
-        modal.classList.add("forceHide");
     }, 1); // Start fading out after 3 seconds
 
     setTimeout(() => {
@@ -741,6 +740,9 @@ function closeModal(){
         modal.classList.remove('fade-out');        
     }, 500); // 
 
+    setTimeout(() => {
+        modal.classList.add("forceHide");
+    }, 1500); // Start fading out after 3 seconds
     const backButton =document.getElementById("backButton");
     backButton.classList.add("forceButton");
 }
@@ -822,4 +824,16 @@ function share(){
         window.open(linkedinUrl, '_blank');
     }
 
+}
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+            .then((registration) => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch((error) => {
+                console.error('Service Worker registration failed:', error);
+            });
+    });
 }
