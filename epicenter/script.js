@@ -229,7 +229,18 @@ function _loadWord(pID){
         liveGame = true;
     }
     _wordIndex = vIndex;
-    _word = WordList[vIndex].toUpperCase();        
+    _word = WordList[vIndex].toUpperCase();
+    
+    const pastDate = new Date(startDate);
+    if(typeof vIndex === 'string'){
+        vIndex = parseInt(vIndex);
+    }
+    pastDate.setDate(startDate.getDate() + vIndex);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = pastDate.toLocaleDateString('en-US', options);
+    const header = document.getElementById("gameID");
+    header.textContent = formattedDate;
+
     _restoreGame();
 }
 
@@ -499,14 +510,17 @@ function getWrappedLetterIndexes(centerLetter, offset) {
 }
 
 function _hideAllPages(){
+    isGamePageShown = false;
     const pages = document.getElementsByClassName("page");
     for(let i = 0, j = pages.length; i<j;i++){
         pages[i].classList.add("hiddenPage");
         pages[i].classList.remove("shownPage");
     }
 }
+let isGamePageShown = false;
 function play(pID){
     _hideAllPages();
+    isGamePageShown = true;
     document.getElementById("gamePage").classList.remove("hiddenPage");
     document.getElementById("gamePage").classList.add("shownPage");
     init(pID);
@@ -691,6 +705,10 @@ function _resetGrid(){
     }    
 }
  
+function _isGamePageShown(){
+    return isGamePageShown;
+}
+
 function _showModal(sHeader, sTitle){
     _updateStats("DISPLAY");
     const modal = document.getElementById('modal');
@@ -698,10 +716,15 @@ function _showModal(sHeader, sTitle){
     const title = document.getElementById('modalTitle');
     header.textContent = sHeader;
     title.textContent = sTitle;
-    modal.classList.add('show');
-    setTimeout(() => {
-        modal.classList.remove('invisible');        
-    }, 500); // Start fading out after 3 seconds    
+    if(_isGamePageShown()){
+        const backButton =document.getElementById("backButton");
+        backButton.classList.remove("forceButton");
+        modal.classList.add('show');
+        modal.classList.remove("forceHide");
+        setTimeout(() => {
+            modal.classList.remove('invisible');        
+        }, 500); // Start fading out after 3 seconds   
+    } 
 }
 
 function closeModal(){    
@@ -710,12 +733,16 @@ function closeModal(){
         modal.classList.remove('invisible');
         modal.classList.remove('show');
         modal.classList.add('fade-out');
+        modal.classList.add("forceHide");
     }, 1); // Start fading out after 3 seconds
 
     setTimeout(() => {
         modal.classList.add('invisible');
         modal.classList.remove('fade-out');        
     }, 500); // 
+
+    const backButton =document.getElementById("backButton");
+    backButton.classList.add("forceButton");
 }
 
 function _loadBarChart(){

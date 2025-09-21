@@ -102,6 +102,7 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.1s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-weight: bolder;
 }
 
 .key:hover {
@@ -182,6 +183,13 @@ h1 {
     float: right;
     position: absolute;
     right: 10px;
+}
+
+
+.leftButton{
+    float: left;
+    position: absolute;
+    left: 10px;
 }
 
 /* Reasonable - Bold Yellow */
@@ -282,9 +290,10 @@ h1 {
 
 .headerBar {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;   
     padding: 10px;
+    width: 100%;
 }
 
 @media (max-width: 600px) {
@@ -292,6 +301,7 @@ h1 {
         border-radius: 6px;
         padding: 12px 3.4vw;
         font-size: 10px;
+        font-weight: bold;
     }
 
     .cell {
@@ -309,6 +319,7 @@ h1 {
         border-radius: 6px;
         padding: 12px 3.4vw;
         font-size: 10px;
+        font-weight: bolder;
     }
 
     .cell {
@@ -523,4 +534,18 @@ h2{
 
 .raiseButton {
     margin-top: -20px;
+}
+
+.headerTitle {
+    flex-grow: 1;
+    align-content: center;
+    justify-content: center;
+}
+
+.forceButton{
+    z-index: 1000;
+}
+
+.forceHide {
+    z-index: -1000;
 }
