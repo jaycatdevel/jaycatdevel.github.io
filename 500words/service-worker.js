@@ -1,4 +1,4 @@
-const VERSION = '1.4';
+const VERSION = '1.5';
 
 const CACHE_NAME = '500-word-v1';
 const FILES_TO_CACHE = [
