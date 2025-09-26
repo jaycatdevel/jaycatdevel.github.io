@@ -46,7 +46,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Ensures space is distributed */
-    height: calc(100vh - 55px); /* Adjust height to account for browser chrome and padding */
+    height: calc(100dvh - 55px); /* Adjust height to account for browser chrome and padding */
     width: 100%; /* Ensure the container takes full width */
     max-width: 600px; /* Set a maximum width for the container */
     background-color: #fff;
@@ -61,7 +61,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Ensures space is distributed */
-    height: calc(100vh - 60px); /* Adjust height to account for browser chrome and padding */
+    height: calc(100dvh - 60px); /* Adjust height to account for browser chrome and padding */
     width: 100%; /* Ensure the container takes full width */
     max-width: 120px; /* Set a maximum width for the container */
     padding-left: 20px;
