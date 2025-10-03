@@ -1,9 +1,12 @@
 let vDesiredCount = 500;
 let vCurrentCount = 0;
+let docNo = "";
+let disableSave = false;
 // Load content from local storage on page load
-window.onload = function() {
-    const savedContent = localStorage.getItem('novelContent');
-    if (savedContent) {
+
+function loadFunction(){
+    const savedContent = localStorage.getItem('novelContent' + docNo);
+    if (savedContent) { 
         document.getElementById('novelContent').innerHTML = savedContent;
     }
     const savedCount = localStorage.getItem('desiredCount');
@@ -11,8 +14,10 @@ window.onload = function() {
         vDesiredCount = savedCount;
     }
     updateWordCount(); // Update word count on load    
-};
+}
 
+window.onload = loadFunction();
+    
 function updateWordCount() {
     const content = document.querySelector('.novel-content').innerText;
     const words = content.trim().split(/\s+/).filter(word => word.length > 0).length;
@@ -21,7 +26,9 @@ function updateWordCount() {
     document.getElementById('wordCount').innerText = vCount;
     vCurrentCount = words;
     // Save content to local storage
-    localStorage.setItem('novelContent', document.getElementById('novelContent').innerHTML);
+    if(!disableSave){
+        localStorage.setItem('novelContent' + docNo, document.getElementById('novelContent').innerHTML);
+    }
 }
 
 // Download content as a text file
@@ -81,6 +88,22 @@ document.getElementById('openModalBtn').onclick = function() {
 
 document.getElementById('closeModalBtn').onclick = function() {
     document.getElementById('modal').style.display = 'none';
+}
+
+document.getElementById('openModalSwitchBtn').onclick = function() {    
+    const savedDoc = localStorage.getItem('novelContent');
+    const savedDoc1 = localStorage.getItem('novelContent1');
+    const savedDoc2 = localStorage.getItem('novelContent2');
+    const savedDoc3 = localStorage.getItem('novelContent3');
+    document.getElementById('rec').innerHTML = savedDoc;
+    document.getElementById('rec1').innerHTML = savedDoc1;
+    document.getElementById('rec2').innerHTML = savedDoc2;
+    document.getElementById('rec3').innerHTML = savedDoc3;
+    document.getElementById('modalSwitch').style.display = 'block';
+}
+
+document.getElementById('closeModalSwitchBtn').onclick = function() {
+    document.getElementById('modalSwitch').style.display = 'none';
 }
 
 window.onclick = function(event) {
@@ -191,4 +214,36 @@ function saveTodos() {
         todos.push({ text: item.textContent.replace('🗑️', '').trim() });
     });
     localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function selectDoc(docNumber){
+    disableSave = true;
+    docNo = docNumber;
+    loadFunction();
+    document.getElementById('modalSwitch').style.display = 'none';
+    disableSave = false;
+    let num = parseInt(docNumber);
+    
+    if(Number.isNaN(num)){
+        num = 0;
+    }
+    num++;
+    _showToast(num.toFixed(0));
+}
+
+function _showToast(sMessage){        
+    const toast = document.getElementById('toast');
+    toast.textContent = sMessage;
+    toast.classList.add('show');
+
+    setTimeout(() => {
+        toast.classList.remove('invisible');
+        toast.classList.remove('show');
+        toast.classList.add('fade-out');
+    }, 700); // Start fading out after 3 seconds
+
+    setTimeout(() => {
+        toast.classList.add('invisible');
+        toast.classList.remove('fade-out');
+    }, 1200); // reset after 3.5 seconds    
 }

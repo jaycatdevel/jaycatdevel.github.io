@@ -84,6 +84,14 @@ html, body {
     margin-bottom: 20px;
 }
 
+.smallText {
+    font-size:0.7em;
+}
+
+.centre-circle{
+    padding-left: 11px;
+}
+
 .novel-content {
     flex-grow: 1; /* Allows the content area to grow and fill the space */
     color: #444;
@@ -156,6 +164,7 @@ button {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    margin-top: -10px;
 }
 
 .close:hover,
@@ -184,6 +193,75 @@ ul {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
 }
 
+.grid {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, 145px);
+    grid-template-rows: repeat(2, 180px);
+    gap: 10px; /* Optional spacing between rectangles */
+}
+
+.rectangle {
+    width: 145px;
+    height: 180px;
+    background-color: #f0f0f0; /* Light gray background */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    position: relative;
+    overflow: hidden; /* Hide overflow */
+    border: 1px solid #ccc; /* Optional border */
+    user-select: none; /* Standard syntax */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+.number {
+    position: absolute;
+    font-size: 2em; /* Size of the number */    
+}
+
+.text {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8em; /* Font size for lorem ipsum */
+    opacity: 0.8; /* Slightly transparent */
+}
+
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 17px;
+    transition: visibility 0s linear 3s, opacity 0.5s linear;
+}
+
+.toast.invisible {
+   opacity: 0;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s linear;
+}
+
+.toast.fade-out {
+	visibility: visible;
+    opacity: 0;
+    transition: opacity 0.5s linear;
+}
+
 @media (max-width: 700px) {
     .circle {
         margin-left: 10px;
@@ -201,5 +279,13 @@ ul {
     .novel-container {
         margin-right: 25px;
         max-width: calc(100% - 80px);
+    }
+
+    .mobileHide {
+        visibility: hidden;
+    }
+
+    .centre-circle{
+        padding-left: 6px;
     }
 }
