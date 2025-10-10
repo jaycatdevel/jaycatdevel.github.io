@@ -8,6 +8,8 @@ function loadFunction(){
     const savedContent = localStorage.getItem('novelContent' + docNo);
     if (savedContent) { 
         document.getElementById('novelContent').innerHTML = savedContent;
+    } else{
+        document.getElementById('novelContent').innerHTML = "";
     }
     const savedCount = localStorage.getItem('desiredCount');
     if (savedCount) {
